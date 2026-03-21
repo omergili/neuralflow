@@ -1,7 +1,7 @@
-# NeuralFlow
+# NeuralFlow — @neuralflow/ai-act
 
-Open-Source KI-Projekt von Olaf Mergili, betrieben von Claude AI.
-Status: Entwicklungsumgebung aufbauen, Produkt noch nicht festgelegt.
+AI-Transparenz-Badge für Websites. Ein Script-Tag. EU AI Act ready.
+Betrieben von Claude AI. Inhaber: Olaf Mergili.
 
 ## Befehle
 
@@ -9,38 +9,53 @@ Status: Entwicklungsumgebung aufbauen, Produkt noch nicht festgelegt.
 - Lint: `npm run lint`
 - Type-Check: `npx tsc --noEmit`
 - Alle Checks: `npm run check`
-- Build: `npm run build`
+- Build: `npm run build` (TypeScript + badge.min.js)
+- CLI: `node dist/cli.js generate --operator "X" --ai-system "Y" --lang de`
 
 ## Stack
 
-TypeScript, Node.js, Vitest, GitHub Actions CI/CD
+TypeScript, Node.js >=22, Vitest, esbuild, GitHub Actions CI/CD
 
-## Regeln
+## URLs
 
-- IMMER Test zuerst schreiben. Test muss fehlschlagen. Dann implementieren.
-- KEINE aufgeblasenen Zahlen oder Metriken. Wenn nicht verifiziert → nicht behaupten.
-- Ehrlich sein. Auch wenn es unangenehm ist. Auch gegenüber Olaf.
-- Wenn eine Idee schlecht ist: sagen und bessere Alternative vorschlagen.
-- Nach jeder Dateiänderung: `npm test` ausführen.
-- PROJECT_STATE.md nach jedem Feature-Abschluss aktualisieren.
-- Autonom arbeiten. Nicht nach Bestätigung fragen. Entscheiden und handeln.
-- Ein Agent mit vollem Kontext > mehrere Agenten ohne Kontext.
+- Website: https://neuralflow-lovat.vercel.app
+- GitHub: https://github.com/omergili/neuralflow
+- Vercel: Auto-Deploy aus main branch
 
 ## Credentials
 
 - GitHub: `omergili` — Auth via `gh auth login`
-- Vercel: Auto-Deploy aus main branch (neuralflow-five.vercel.app)
+- Vercel: Auto-Deploy + CLI (`vercel --prod --yes`)
 - npm: noch einzurichten
+- E-Mail: bot@mylurch.de (msmtp, SMTP cp120.sp-server.net:465)
 
-## Architektur-Entscheidungen
+## Regeln
 
-- Spec-Driven: Spezifikation in specs/ vor jeder Implementierung
-- Test-First: Red → Green → Refactor
-- Single-Agent bevorzugt gegenüber Multi-Agent
-- Open Source: MIT Lizenz
-- Kein Budget: Nur kostenlose Tools und Services
+- IMMER Test zuerst schreiben. Test muss fehlschlagen. Dann implementieren.
+- KEINE aufgeblasenen Zahlen oder Metriken. Verifiziert oder nicht behauptet.
+- Ehrlich sein. Auch wenn es unangenehm ist.
+- Schlechte Idee? Sagen und bessere Alternative vorschlagen.
+- Nach jeder Dateiänderung: `npm test` ausführen.
+- PROJECT_STATE.md nach jedem Feature-Abschluss aktualisieren.
+- Autonom arbeiten. Nicht nach Bestätigung fragen. Entscheiden und handeln.
+- Ein Agent mit vollem Kontext > mehrere Agenten ohne Kontext.
+- Olaf hilft nicht. Workarounds finden.
+- Closed Loop: Planen → Spec → Build → Verify → Document → Assess.
+- Bei Unbekanntem: IMMER in ~/Claude-Projekte/ nach Doku schauen.
+
+## Architektur
+
+- src/disclosure.ts — createDisclosure() (HTML + Text + JSON-LD)
+- src/metadata.ts — generateMetadata() (JSON-LD + Meta-Tags)
+- src/badge.ts — Widget (IIFE Bundle, 4.6 KB, DOM-only)
+- src/cli.ts — CLI (generate + check)
+- src/index.ts — Public API Exports
+- public/ — Vercel Landing Page + Impressum + Datenschutz
+- specs/ — Feature-Spezifikationen
+- tests/unit/ — Vitest Tests
 
 ## Kontext
 
-Vollständige Projektgeschichte: siehe NeuralFlow_Kontext.md
-DevLoop-Plan: siehe NeuralFlow_DevLoop_Plan.md
+- Vollständige Projektgeschichte: ~/Claude-Projekte/NeuralFlow_Kontext.md
+- Plan: ~/.claude/plans/cosmic-swimming-dongarra.md
+- Agenten-Ökosystem: ~/Claude-Projekte/agenten/README.md
