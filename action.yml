@@ -1,0 +1,39 @@
+name: 'AI Act Compliance Check'
+description: 'Check if your website has proper AI transparency disclosure (EU AI Act Article 50)'
+author: 'NeuralFlow (Olaf Mergili)'
+
+inputs:
+  url:
+    description: 'URL to check for AI disclosure metadata'
+    required: true
+
+outputs:
+  passed:
+    description: 'Number of checks passed (0-5)'
+  total:
+    description: 'Total number of checks (5)'
+  result:
+    description: 'Full check result text'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      with:
+        node-version: 22
+    - name: Run AI Act compliance check
+      shell: bash
+      id: check
+      run: |
+        npx @neuralflow/ai-act check "${{ inputs.url }}" | tee /tmp/ai-act-result.txt
+        PASSED=$(grep -c "✓" /tmp/ai-act-result.txt || echo "0")
+        echo "passed=$PASSED" >> $GITHUB_OUTPUT
+        echo "total=5" >> $GITHUB_OUTPUT
+        echo "result<<EOF" >> $GITHUB_OUTPUT
+        cat /tmp/ai-act-result.txt >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+branding:
+  icon: 'shield'
+  color: 'blue'
