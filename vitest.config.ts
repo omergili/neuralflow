@@ -8,7 +8,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary'],
-      exclude: ['src/badge.ts', 'src/cli.ts', 'public/**'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/badge.ts', 'src/cli.ts', 'src/index.ts'],
       thresholds: {
         lines: 80,
         functions: 80,
