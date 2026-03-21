@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": {
+          "tool": ["Write", "Edit"]
+        },
+        "command": ".claude/hooks/post-edit-test.sh"
+      }
+    ],
+    "SessionStart": [
+      {
+        "command": ".claude/hooks/session-start.sh"
+      }
+    ]
+  }
+}

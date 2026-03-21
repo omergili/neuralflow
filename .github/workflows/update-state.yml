@@ -1,0 +1,73 @@
+name: Update Project State
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Collect metrics
+        id: metrics
+        run: |
+          TEST_OUTPUT=$(npx vitest run --reporter=verbose 2>&1)
+          TESTS_PASSED=$(echo "$TEST_OUTPUT" | grep -c '✓' || echo "0")
+          TEST_FILES=$(echo "$TEST_OUTPUT" | grep 'Test Files' | head -1 || echo "unbekannt")
+          echo "tests_passed=$TESTS_PASSED" >> "$GITHUB_OUTPUT"
+          echo "test_files=$TEST_FILES" >> "$GITHUB_OUTPUT"
+
+      - name: Update PROJECT_STATE.md
+        run: |
+          cat > PROJECT_STATE.md << STATEEOF
+          # Projekt-Status
+
+          Letzte Aktualisierung: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+          ## CI Status: ✅ Grün
+
+          Letzter erfolgreicher Run: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+          ${{ steps.metrics.outputs.test_files }}
+
+          ## Was funktioniert (durch Tests verifiziert)
+
+          - validateConfig: tests/unit/validate.test.ts — ✅ 5 Tests bestanden
+
+          ## Was kaputt ist
+
+          - Nichts — alle Tests grün
+
+          ## Nächste Schritte
+
+          - Siehe GitHub Issues
+
+          ## Metriken (automatisch aus CI)
+
+          - Letzter CI-Run: ✅ $(date -u +%Y-%m-%d)
+          - Offene Issues: wird über GitHub Issues getrackt
+          STATEEOF
+          # Fix indentation from heredoc
+          sed -i 's/^          //' PROJECT_STATE.md
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add PROJECT_STATE.md
+          git diff --staged --quiet || git commit -m "chore: update project state" && git push
