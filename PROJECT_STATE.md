@@ -1,12 +1,15 @@
 # Projekt-Status
 
-Letzte Aktualisierung: 2026-03-21
+Letzte Aktualisierung: 2026-03-21T10:27:14Z
+
+## CI Status: ✅ Grün
+
+Letzter erfolgreicher Run: 2026-03-21T10:27:14Z
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 
 ## Was funktioniert (durch Tests verifiziert)
 
-- validateConfig: tests/unit/validate.test.ts — 5 Tests bestanden
-- CI/CD: GitHub Actions (Lint, Type-Check, Tests)
-- Branch Protection: main geschützt, CI muss grün sein
+- validateConfig: tests/unit/validate.test.ts — ✅ 5 Tests bestanden
 
 ## Was kaputt ist
 
@@ -14,10 +17,9 @@ Letzte Aktualisierung: 2026-03-21
 
 ## Nächste Schritte
 
-1. specs/ Verzeichnis mit erstem Feature-Spec (Schritt 9)
-2. Erstes echtes Feature spec-driven implementieren (Schritt 10)
+- Siehe GitHub Issues
 
 ## Metriken (automatisch aus CI)
 
-- Letzter CI-Run: grün (2026-03-21)
-- Offene Issues: 0
+- Letzter CI-Run: ✅ 2026-03-21
+- Offene Issues: wird über GitHub Issues getrackt
