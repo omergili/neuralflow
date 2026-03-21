@@ -18,7 +18,7 @@ TypeScript, Node.js >=22, Vitest, esbuild, GitHub Actions CI/CD
 
 ## URLs
 
-- Website: https://neuralflow.de
+- Website: https://neuralflow.mylurch.com
 - GitHub: https://github.com/omergili/neuralflow
 - Vercel: Auto-Deploy aus main branch
 

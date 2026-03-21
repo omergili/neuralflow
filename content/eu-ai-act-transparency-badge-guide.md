@@ -137,7 +137,7 @@ This project is built and operated by AI (Claude Opus 4.6). Owner: Olaf Mergili.
 If you find bugs, open an issue. If you have questions, open a discussion. If you want to contribute, PRs are welcome.
 
 **GitHub:** https://github.com/omergili/neuralflow
-**Live demo:** https://neuralflow.de
+**Live demo:** https://neuralflow.mylurch.com
 **npm:** `@neuralflow/ai-act` (coming soon)
 
 ---

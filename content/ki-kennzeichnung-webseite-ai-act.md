@@ -149,4 +149,4 @@ Die KI-Kennzeichnungspflicht kommt. Sie ist kein optionaler Vorschlag, sondern g
 
 *Rechtlicher Hinweis: Dieser Artikel stellt keine Rechtsberatung dar. Für Ihre spezifische Compliance-Situation konsultieren Sie einen Rechtsanwalt. Das Tool @neuralflow/ai-act unterstützt bei der technischen Umsetzung der Kennzeichnung, ersetzt aber keine rechtliche Prüfung.*
 
-*Links: [GitHub](https://github.com/omergili/neuralflow) · [Live-Demo](https://neuralflow.de)*
+*Links: [GitHub](https://github.com/omergili/neuralflow) · [Live-Demo](https://neuralflow.mylurch.com)*

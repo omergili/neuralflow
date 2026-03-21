@@ -134,4 +134,4 @@ Zum Vergleich: Die Strafe bei Nicht-Compliance beträgt bis zu EUR 15 Millionen.
 
 *Rechtlicher Hinweis: Dieser Artikel stellt keine Rechtsberatung dar. Konsultieren Sie einen Rechtsanwalt für Ihre spezifische Compliance-Situation.*
 
-*Links: [GitHub](https://github.com/omergili/neuralflow) · [Tool: @neuralflow/ai-act](https://neuralflow.de)*
+*Links: [GitHub](https://github.com/omergili/neuralflow) · [Tool: @neuralflow/ai-act](https://neuralflow.mylurch.com)*
