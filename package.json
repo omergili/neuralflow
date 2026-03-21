@@ -9,7 +9,7 @@
     "type": "git",
     "url": "https://github.com/omergili/neuralflow"
   },
-  "homepage": "https://github.com/omergili/neuralflow#readme",
+  "homepage": "https://neuralflow.de",
   "bugs": "https://github.com/omergili/neuralflow/issues",
   "engines": {
     "node": ">=22"

@@ -13,7 +13,7 @@ Letzte Aktualisierung: 2026-03-21
 - generateMetadata(): JSON-LD + Meta-Tags — 10 Tests
 - badge.min.js: Drop-in Widget 4.6 KB — 10 DOM-Tests (happy-dom)
 - CLI: generate + check — gebaut, manuell verifiziert
-- Landing Page: https://neuralflow-lovat.vercel.app — LIVE
+- Landing Page: https://neuralflow.de — LIVE
 - Impressum + Datenschutz — LIVE (deutsches Recht)
 - Dog-Fooding: 5/5 Self-Check bestanden
 - CI/CD: GitHub Actions — GRÜN (46 Tests, 96% Coverage)

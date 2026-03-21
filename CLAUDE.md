@@ -18,7 +18,7 @@ TypeScript, Node.js >=22, Vitest, esbuild, GitHub Actions CI/CD
 
 ## URLs
 
-- Website: https://neuralflow-lovat.vercel.app
+- Website: https://neuralflow.de
 - GitHub: https://github.com/omergili/neuralflow
 - Vercel: Auto-Deploy aus main branch
 

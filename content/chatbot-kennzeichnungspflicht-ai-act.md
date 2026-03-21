@@ -113,4 +113,4 @@ Sie als Betreiber (Deployer) tragen die Transparenzpflicht, nicht der Anbieter d
 
 *Rechtlicher Hinweis: Dieser Artikel stellt keine Rechtsberatung dar. Konsultieren Sie einen Rechtsanwalt für Ihre spezifische Compliance-Situation.*
 
-*Links: [GitHub](https://github.com/omergili/neuralflow) · [Tool: @neuralflow/ai-act](https://neuralflow-lovat.vercel.app)*
+*Links: [GitHub](https://github.com/omergili/neuralflow) · [Tool: @neuralflow/ai-act](https://neuralflow.de)*
