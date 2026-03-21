@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update:
@@ -72,7 +73,7 @@ jobs:
           sed -i "s|__TEST_FILES__|${{ steps.metrics.outputs.test_files }}|g" PROJECT_STATE.md
           sed -i "s|__TESTS__|${{ steps.metrics.outputs.tests }}|g" PROJECT_STATE.md
 
-      - name: Commit if changed
+      - name: Commit and create PR
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -81,5 +82,11 @@ jobs:
             echo "Keine Änderungen"
             exit 0
           fi
+          BRANCH="chore/update-state-$(date +%s)"
+          git checkout -b "$BRANCH"
           git commit -m "chore: update project state [skip ci]"
-          git push
+          git push origin "$BRANCH"
+          gh pr create --title "chore: update project state" --body "Automatisches Update nach erfolgreichem CI-Run." --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --merge --admin
+        env:
+          GH_TOKEN: ${{ github.token }}
