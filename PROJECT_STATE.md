@@ -11,40 +11,53 @@ Letzte Aktualisierung: 2026-03-21
 
 - createDisclosure(): HTML + Text + JSON-LD (DE/EN) — 11 Tests
 - generateMetadata(): JSON-LD + Meta-Tags — 10 Tests
-- badge.min.js: Drop-in Widget 4.6 KB — gebaut, auf Vercel live
+- badge.min.js: Drop-in Widget 4.6 KB — 10 DOM-Tests (happy-dom)
 - CLI: generate + check — gebaut, manuell verifiziert
-- Landing Page: live auf https://neuralflow-lovat.vercel.app
-- Impressum + Datenschutz: live (deutsches Recht)
-- Dog-Fooding: Eigene Website besteht 5/5 Compliance-Check
-- CI/CD: GitHub Actions — GRÜN (36 Tests, 96% Coverage)
-- GitHub Release: v0.1.0 erstellt
+- Landing Page: https://neuralflow-lovat.vercel.app — LIVE
+- Impressum + Datenschutz — LIVE (deutsches Recht)
+- Dog-Fooding: 5/5 Self-Check bestanden
+- CI/CD: GitHub Actions — GRÜN (46 Tests, 96% Coverage)
+- GitHub Release: v0.1.0
 - GitHub Topics: ai-act, eu-ai-act, ai-transparency, etc.
 - validateConfig + parseSpec — 15 Tests (bestehend)
 
+## Content-Pipeline (mylurch.com)
+
+3 Artikel als Drafts hochgeladen via FELIX:
+- Post 1671: "KI-Kennzeichnung auf Webseiten" (Keyword: KI-Kennzeichnung Webseite)
+- Post 1673: "Chatbot-Kennzeichnungspflicht" (Keyword: Chatbot Kennzeichnungspflicht)
+- Post 1675: "AI Act Checkliste KMU" (Keyword: AI Act Checkliste KMU)
+Alle als Draft — Olaf kann reviewen und publishen.
+
+Launch-Posts vorbereitet: content/launch-post-en.md (HN, Reddit, Dev.to)
+
 ## Was kaputt ist
 
-- Nichts. 36 Tests grün, CI grün, Deploy live, 5/5 Self-Check.
+- Nichts. 46 Tests grün, CI grün, Deploy live, 5/5 Self-Check.
 
-## Blocker (braucht Olaf)
+## Blocker (braucht Olaf, je 2 Min)
 
-- npm publish: Kein npm-Account. Workarounds:
-  a) Olaf: `npm adduser` (einmalig)
-  b) Olaf: `gh auth refresh --hostname github.com --scopes write:packages` (Browser-Klick)
-  Kein harter Blocker — Produkt funktioniert über GitHub.
+- npm publish: `npm adduser` oder `gh auth refresh --scopes write:packages`
+- Blog-Artikel publishen: Drafts auf mylurch.com reviewen
+- Launch-Posts auf HN/Reddit/Dev.to posten (braucht Accounts)
 
-## Nächste Schritte
+## Nächste Schritte (ohne Olaf machbar)
 
-- [ ] npm-Account / GitHub Packages einrichten
-- [ ] mylurch.com: AI-Act-Artikel schreiben (Keyword-Recherche läuft)
-- [ ] Hacker News / Reddit / Dev.to Launch-Post
-- [ ] Vercel-Domain konsolidieren (neuralflow-five vs neuralflow-lovat)
+- [ ] Weitere Blog-Artikel schreiben (Tier 1 Keywords)
+- [ ] Badge-Styling verbessern (Design-Polish)
+- [ ] Englische Landing Page Version
+- [ ] GitHub Discussions aktivieren
+- [ ] C2PA v2 planen
 
 ## Metriken
 
-- Tests: 36 (4 Dateien)
+- Tests: 46 (5 Dateien)
 - Coverage: 96% (Library-Code)
 - Badge-Größe: 4.6 KB (minified)
-- Self-Check: 5/5 bestanden
-- Commits heute: 9
+- Self-Check: 5/5
+- Commits heute: 16+
 - CI: grün
 - Deploy: live
+- Blog-Drafts: 3 auf mylurch.com
+- GitHub Stars: 0 (Launch pending)
+- npm Downloads: 0 (npm publish pending)
