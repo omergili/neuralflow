@@ -6,6 +6,8 @@ The EU AI Act (Article 50) requires AI-generated content to be labeled — machi
 
 There's no standard badge for this yet. This is it.
 
+![Screenshot](https://neuralflow-lovat.vercel.app/screenshot.png)
+
 ## Quick Start (any website)
 
 Add one script tag. Done.
