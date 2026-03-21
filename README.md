@@ -86,6 +86,66 @@ The `check` command looks for:
 - `<meta name="ai-operator">` tag
 - Visible disclosure text
 
+## Framework integration
+
+### React / Next.js
+
+```jsx
+import { useEffect } from 'react';
+
+export function AiActBadge({ operator, aiSystem, lang = 'en' }) {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@neuralflow/ai-act/dist/badge.min.js';
+    script.setAttribute('data-operator', operator);
+    script.setAttribute('data-ai-system', aiSystem);
+    script.setAttribute('data-lang', lang);
+    document.body.appendChild(script);
+    return () => { document.body.removeChild(script); };
+  }, [operator, aiSystem, lang]);
+  return null;
+}
+
+// Usage: <AiActBadge operator="Your Company" aiSystem="Claude" lang="de" />
+```
+
+### Vue
+
+```vue
+<script setup>
+import { onMounted } from 'vue';
+const props = defineProps({ operator: String, aiSystem: String, lang: { default: 'en' } });
+onMounted(() => {
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@neuralflow/ai-act/dist/badge.min.js';
+  s.dataset.operator = props.operator;
+  s.dataset.aiSystem = props.aiSystem;
+  s.dataset.lang = props.lang;
+  document.body.appendChild(s);
+});
+</script>
+```
+
+### WordPress
+
+Add to your theme's `footer.php` before `</body>`, or use a "Custom HTML" widget:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@neuralflow/ai-act/dist/badge.min.js"
+  data-operator="Your Company"
+  data-ai-system="ChatGPT"
+  data-lang="de">
+</script>
+```
+
+### Shopify
+
+Add to `theme.liquid` before `</body>`.
+
+### Shopware 6
+
+Add via "Erlebniswelten" → Custom Code Element, or in `base.html.twig`.
+
 ## EU AI Act — Article 50 in brief
 
 - **Who:** Anyone deploying AI systems that interact with people or generate content in the EU
