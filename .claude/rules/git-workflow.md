@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*"
+---
+
 # Git-Workflow
 
 1. Commit-Messages auf Deutsch, präfix: init/feat/fix/refactor/docs/chore/test

@@ -7,18 +7,17 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: main
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
           cache: 'npm'
@@ -29,26 +28,28 @@ jobs:
         id: metrics
         run: |
           TEST_OUTPUT=$(npx vitest run --reporter=verbose 2>&1)
-          TESTS_PASSED=$(echo "$TEST_OUTPUT" | grep -c '✓' || echo "0")
           TEST_FILES=$(echo "$TEST_OUTPUT" | grep 'Test Files' | head -1 || echo "unbekannt")
-          echo "tests_passed=$TESTS_PASSED" >> "$GITHUB_OUTPUT"
+          TESTS_LINE=$(echo "$TEST_OUTPUT" | grep 'Tests' | head -1 || echo "unbekannt")
           echo "test_files=$TEST_FILES" >> "$GITHUB_OUTPUT"
+          echo "tests=$TESTS_LINE" >> "$GITHUB_OUTPUT"
 
       - name: Update PROJECT_STATE.md
         run: |
-          cat > PROJECT_STATE.md << STATEEOF
+          cat > PROJECT_STATE.md << 'STATEEOF'
           # Projekt-Status
 
-          Letzte Aktualisierung: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+          Letzte Aktualisierung: __DATE__
 
-          ## CI Status: ✅ Grün
+          ## CI Status
 
-          Letzter erfolgreicher Run: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-          ${{ steps.metrics.outputs.test_files }}
+          Letzter erfolgreicher Run: __DATE__
+          __TEST_FILES__
+          __TESTS__
 
           ## Was funktioniert (durch Tests verifiziert)
 
-          - validateConfig: tests/unit/validate.test.ts — ✅ 5 Tests bestanden
+          - validateConfig: tests/unit/validate.test.ts
+          - parseSpec: tests/unit/spec-parser.test.ts
 
           ## Was kaputt ist
 
@@ -58,15 +59,20 @@ jobs:
 
           - Siehe GitHub Issues
 
-          ## Metriken (automatisch aus CI)
+          ## Metriken
 
-          - Letzter CI-Run: ✅ $(date -u +%Y-%m-%d)
+          - Letzter CI-Run: __SHORT_DATE__
           - Offene Issues: wird über GitHub Issues getrackt
           STATEEOF
-          # Fix indentation from heredoc
           sed -i 's/^          //' PROJECT_STATE.md
+          DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          SHORT_DATE=$(date -u +%Y-%m-%d)
+          sed -i "s|__DATE__|$DATE|g" PROJECT_STATE.md
+          sed -i "s|__SHORT_DATE__|$SHORT_DATE|g" PROJECT_STATE.md
+          sed -i "s|__TEST_FILES__|${{ steps.metrics.outputs.test_files }}|g" PROJECT_STATE.md
+          sed -i "s|__TESTS__|${{ steps.metrics.outputs.tests }}|g" PROJECT_STATE.md
 
-      - name: Commit and push via temp branch
+      - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -75,11 +81,5 @@ jobs:
             echo "Keine Änderungen"
             exit 0
           fi
-          BRANCH="chore/update-state-$(date +%s)"
-          git checkout -b "$BRANCH"
           git commit -m "chore: update project state [skip ci]"
-          git push origin "$BRANCH"
-          gh pr create --title "chore: update project state" --body "Automatisches Update von PROJECT_STATE.md nach erfolgreichem CI-Run." --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --merge --auto
-        env:
-          GH_TOKEN: ${{ github.token }}
+          git push

@@ -1,3 +1,8 @@
+---
+paths:
+  - "src/**/*.ts"
+---
+
 # Code-Style
 
 1. TypeScript strict mode — keine `any` Typen

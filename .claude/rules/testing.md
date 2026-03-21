@@ -1,3 +1,9 @@
+---
+paths:
+  - "src/**/*.ts"
+  - "tests/**/*.ts"
+---
+
 # Testing-Regeln
 
 1. Vor jeder Implementierung: Test schreiben der das gewünschte Verhalten beschreibt

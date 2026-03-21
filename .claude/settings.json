@@ -1,16 +1,41 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm install *)",
+      "Bash(npm ci)",
+      "Bash(npx tsc *)",
+      "Bash(npx vitest *)",
+      "Bash(npx eslint *)",
+      "Bash(git status *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push origin *)",
+      "Bash(git pull *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git branch *)",
+      "Bash(git checkout *)",
+      "Bash(gh *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Edit(.env*)"
+    ]
+  },
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": {
-          "tool": ["Write", "Edit"]
-        },
-        "command": ".claude/hooks/post-edit-test.sh"
-      }
-    ],
-    "SessionStart": [
-      {
-        "command": ".claude/hooks/session-start.sh"
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/post-edit-test.sh"
+          }
+        ]
       }
     ]
   }
