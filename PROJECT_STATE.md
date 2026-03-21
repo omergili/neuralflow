@@ -9,32 +9,42 @@ Letzte Aktualisierung: 2026-03-21
 
 ## Was funktioniert (durch Tests verifiziert)
 
-- createDisclosure(): HTML + Text + JSON-LD Offenlegung (DE/EN) — 11 Tests
-- generateMetadata(): JSON-LD + Meta-Tags für AI-Transparenz — 10 Tests
-- badge.min.js: Drop-in Widget (4.6 KB, IIFE, ES2020) — gebaut
-- CLI: generate + check Befehle — gebaut, manuell getestet
-- Landing Page: public/index.html + Impressum + Datenschutz — gebaut
-- Dog-Fooding: Badge auf allen eigenen Seiten eingebunden
+- createDisclosure(): HTML + Text + JSON-LD (DE/EN) — 11 Tests
+- generateMetadata(): JSON-LD + Meta-Tags — 10 Tests
+- badge.min.js: Drop-in Widget 4.6 KB — gebaut, auf Vercel live
+- CLI: generate + check — gebaut, manuell verifiziert
+- Landing Page: live auf https://neuralflow-lovat.vercel.app
+- Impressum + Datenschutz: live (deutsches Recht)
+- Dog-Fooding: Eigene Website besteht 5/5 Compliance-Check
+- CI/CD: GitHub Actions — GRÜN (36 Tests, 96% Coverage)
+- GitHub Release: v0.1.0 erstellt
+- GitHub Topics: ai-act, eu-ai-act, ai-transparency, etc.
 - validateConfig + parseSpec — 15 Tests (bestehend)
-- CI/CD: GitHub Actions (Lint, Type-Check, Tests)
 
 ## Was kaputt ist
 
-- Vercel Deploy: "DEPLOYMENT_NOT_FOUND" — Config muss geprüft werden
-- npm publish: Kein npm-Account eingerichtet, GitHub Packages als Alternative
+- Nichts. 36 Tests grün, CI grün, Deploy live, 5/5 Self-Check.
+
+## Blocker (braucht Olaf)
+
+- npm publish: Kein npm-Account. Workarounds:
+  a) Olaf: `npm adduser` (einmalig)
+  b) Olaf: `gh auth refresh --hostname github.com --scopes write:packages` (Browser-Klick)
+  Kein harter Blocker — Produkt funktioniert über GitHub.
 
 ## Nächste Schritte
 
-- [ ] Vercel Deploy fixen (vercel.json / Projekt-Settings prüfen)
-- [ ] npm-Account einrichten ODER GitHub Packages nutzen
-- [ ] GitHub Repo Description + Topics setzen
-- [ ] CI prüfen (Push bypassed Rulesets)
-- [ ] mylurch.com: AI-Act-Artikel über Content-Pipeline
-- [ ] Hacker News / Reddit / Dev.to Launch-Post vorbereiten
+- [ ] npm-Account / GitHub Packages einrichten
+- [ ] mylurch.com: AI-Act-Artikel schreiben (Keyword-Recherche läuft)
+- [ ] Hacker News / Reddit / Dev.to Launch-Post
+- [ ] Vercel-Domain konsolidieren (neuralflow-five vs neuralflow-lovat)
 
 ## Metriken
 
 - Tests: 36 (4 Dateien)
+- Coverage: 96% (Library-Code)
 - Badge-Größe: 4.6 KB (minified)
-- Commits heute: 5
-- Letzter Push: 2026-03-21
+- Self-Check: 5/5 bestanden
+- Commits heute: 9
+- CI: grün
+- Deploy: live
