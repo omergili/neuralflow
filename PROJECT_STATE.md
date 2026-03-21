@@ -11,30 +11,30 @@ Letzte Aktualisierung: 2026-03-21
 
 - createDisclosure(): HTML + Text + JSON-LD Offenlegung (DE/EN) — 11 Tests
 - generateMetadata(): JSON-LD + Meta-Tags für AI-Transparenz — 10 Tests
-- badge.min.js: Drop-in Widget (4.6 KB, IIFE, ES2020) — gebaut, Test-HTML vorhanden
-- validateConfig: tests/unit/validate.test.ts — 5 Tests
-- parseSpec: tests/unit/spec-parser.test.ts — 10 Tests
-- CI/CD: GitHub Actions (Lint, Type-Check, Tests mit Coverage)
-- Branch Protection: Rulesets auf main
-- Dependabot: wöchentliche Updates
+- badge.min.js: Drop-in Widget (4.6 KB, IIFE, ES2020) — gebaut
+- CLI: generate + check Befehle — gebaut, manuell getestet
+- Landing Page: public/index.html + Impressum + Datenschutz — gebaut
+- Dog-Fooding: Badge auf allen eigenen Seiten eingebunden
+- validateConfig + parseSpec — 15 Tests (bestehend)
+- CI/CD: GitHub Actions (Lint, Type-Check, Tests)
 
 ## Was kaputt ist
 
-- Nichts — 36 Tests grün, CI grün
+- Vercel Deploy: "DEPLOYMENT_NOT_FOUND" — Config muss geprüft werden
+- npm publish: Kein npm-Account eingerichtet, GitHub Packages als Alternative
 
 ## Nächste Schritte
 
-- [ ] CI prüfen (Push ist durch)
-- [ ] CLI bauen (npx @neuralflow/ai-act generate / check)
-- [ ] package.json für npm-Publish vorbereiten (name, keywords, files, bin)
-- [ ] README.md schreiben (Englisch, Ein-Satz-Pitch, Script-Tag-Beispiel)
-- [ ] npm publish oder GitHub Packages
-- [ ] Landing Page auf Vercel mit eigenem Badge (Dog-Fooding)
-- [ ] Impressum + Datenschutz Seiten
-- [ ] mylurch.com: AI-Act-Content-Artikel über Pipeline (KARL→FELIX)
+- [ ] Vercel Deploy fixen (vercel.json / Projekt-Settings prüfen)
+- [ ] npm-Account einrichten ODER GitHub Packages nutzen
+- [ ] GitHub Repo Description + Topics setzen
+- [ ] CI prüfen (Push bypassed Rulesets)
+- [ ] mylurch.com: AI-Act-Artikel über Content-Pipeline
+- [ ] Hacker News / Reddit / Dev.to Launch-Post vorbereiten
 
 ## Metriken
 
 - Tests: 36 (4 Dateien)
 - Badge-Größe: 4.6 KB (minified)
+- Commits heute: 5
 - Letzter Push: 2026-03-21
