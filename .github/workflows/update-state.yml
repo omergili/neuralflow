@@ -84,9 +84,9 @@ jobs:
           fi
           BRANCH="chore/update-state-$(date +%s)"
           git checkout -b "$BRANCH"
-          git commit -m "chore: update project state [skip ci]"
+          git commit -m "chore: update project state"
           git push origin "$BRANCH"
           gh pr create --title "chore: update project state" --body "Automatisches Update nach erfolgreichem CI-Run." --base main --head "$BRANCH"
-          gh pr merge "$BRANCH" --merge --admin
+          gh pr merge "$BRANCH" --merge --auto --delete-branch
         env:
           GH_TOKEN: ${{ github.token }}
