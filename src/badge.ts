@@ -135,10 +135,23 @@ function init(): void {
   createBadge(config);
 }
 
+// Capture config immediately (document.currentScript is only available during sync execution)
+const _config = typeof document !== 'undefined' ? getConfig() : null;
+
+function initWithConfig(): void {
+  if (!_config || !_config.operator || !_config.aiSystem) {
+    if (_config) console.warn('[ai-act] Missing data-operator or data-ai-system attribute.');
+    return;
+  }
+  injectStyles();
+  injectMetadata(_config);
+  createBadge(_config);
+}
+
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', initWithConfig);
   } else {
-    init();
+    initWithConfig();
   }
 }
