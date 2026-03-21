@@ -1,25 +1,24 @@
 # Projekt-Status
 
-Letzte Aktualisierung: 2026-03-21T10:27:14Z
-
-## CI Status: ✅ Grün
-
-Letzter erfolgreicher Run: 2026-03-21T10:27:14Z
-[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+Letzte Aktualisierung: 2026-03-21
 
 ## Was funktioniert (durch Tests verifiziert)
 
-- validateConfig: tests/unit/validate.test.ts — ✅ 5 Tests bestanden
+- validateConfig: tests/unit/validate.test.ts — 5 Tests
+- parseSpec: tests/unit/spec-parser.test.ts — 10 Tests
+- CI/CD: GitHub Actions (Lint, Type-Check, Tests mit Coverage)
+- Branch Protection: Rulesets auf main (CI muss grün, kein Force-Push, kein Delete)
+- Dependabot: wöchentliche npm + GitHub Actions Updates
 
 ## Was kaputt ist
 
-- Nichts — alle Tests grün
+- Nichts — 15 Tests grün, CI grün
 
 ## Nächste Schritte
 
-- Siehe GitHub Issues
+- Produkt finden und bauen — mit funktionierendem Closed-Loop
 
-## Metriken (automatisch aus CI)
+## Metriken
 
-- Letzter CI-Run: ✅ 2026-03-21
-- Offene Issues: wird über GitHub Issues getrackt
+- Tests: 15 (2 Dateien)
+- Letzter CI-Run: grün (2026-03-21)
