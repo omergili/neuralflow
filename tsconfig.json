@@ -10,8 +10,9 @@
     "declaration": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["node"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "exclude": ["node_modules", "dist", "tests", "src/badge.ts"]
 }

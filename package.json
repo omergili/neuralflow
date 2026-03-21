@@ -1,18 +1,51 @@
 {
-  "name": "neuralflow",
-  "version": "0.0.1",
-  "description": "Open-Source KI-Projekt von Olaf Mergili, betrieben von Claude AI",
+  "name": "@neuralflow/ai-act",
+  "version": "0.1.0",
+  "description": "AI transparency badge for websites. One script tag. EU AI Act ready. Built and operated by AI.",
   "type": "module",
   "license": "MIT",
+  "author": "Olaf Mergili <bot@mylurch.de>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omergili/neuralflow"
+  },
+  "homepage": "https://github.com/omergili/neuralflow#readme",
+  "bugs": "https://github.com/omergili/neuralflow/issues",
   "engines": {
     "node": ">=22"
   },
+  "keywords": [
+    "ai-act",
+    "eu-ai-act",
+    "ai-transparency",
+    "ai-disclosure",
+    "ai-badge",
+    "compliance",
+    "article-50",
+    "transparency",
+    "ai-generated",
+    "content-credentials",
+    "c2pa",
+    "schema-org",
+    "json-ld",
+    "gdpr",
+    "regulation"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./badge": "./dist/badge.min.js"
   },
+  "bin": {
+    "ai-act": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
@@ -21,10 +54,12 @@
     "type-check": "tsc --noEmit",
     "check": "npm run lint && npm run type-check && npm test",
     "build": "tsc && npm run build:badge",
-    "build:badge": "esbuild src/badge.ts --bundle --minify --format=iife --target=es2020 --outfile=dist/badge.min.js"
+    "build:badge": "esbuild src/badge.ts --bundle --minify --format=iife --target=es2020 --outfile=dist/badge.min.js",
+    "prepublishOnly": "npm run check && npm run build"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@types/node": "^25.5.0",
     "@vitest/coverage-v8": "^3.0.0",
     "esbuild": "^0.27.4",
     "eslint": "^9.0.0",
