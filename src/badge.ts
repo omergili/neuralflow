@@ -113,6 +113,11 @@ function createBadge(config: BadgeConfig): void {
       popup.classList.remove('open');
     }
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.classList.contains('open')) {
+      popup.classList.remove('open');
+    }
+  });
 
   container.appendChild(btn);
   document.body.appendChild(container);
