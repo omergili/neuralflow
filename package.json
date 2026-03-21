@@ -1,6 +1,6 @@
 {
   "name": "@neuralflow/ai-act",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AI transparency badge for websites. One script tag. EU AI Act ready. Built and operated by AI.",
   "type": "module",
   "license": "MIT",

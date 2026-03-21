@@ -124,17 +124,6 @@ function createBadge(config: BadgeConfig): void {
   document.body.appendChild(popup);
 }
 
-function init(): void {
-  const config = getConfig();
-  if (!config.operator || !config.aiSystem) {
-    console.warn('[ai-act] Missing data-operator or data-ai-system attribute.');
-    return;
-  }
-  injectStyles();
-  injectMetadata(config);
-  createBadge(config);
-}
-
 // Capture config immediately (document.currentScript is only available during sync execution)
 const _config = typeof document !== 'undefined' ? getConfig() : null;
 
