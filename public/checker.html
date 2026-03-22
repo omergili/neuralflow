@@ -15,6 +15,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="AI Act Compliance Checker — Free Website Scanner">
   <meta name="twitter:description" content="Scan any website for EU AI Act Article 50 compliance. Instant results.">
+  <script>if(/^de\b/i.test(navigator.language)&&!sessionStorage.getItem('nf-lang'))location.replace('/de/checker.html');</script>
   <link rel="canonical" href="https://neuralflow.mylurch.com/checker.html">
   <link rel="alternate" hreflang="en" href="https://neuralflow.mylurch.com/checker.html">
   <link rel="alternate" hreflang="de" href="https://neuralflow.mylurch.com/de/checker.html">
@@ -131,7 +132,7 @@
       <div class="cta-box" id="ctaBox">
         <h3>Fix it in 30 seconds</h3>
         <p>Add this one script tag before <code>&lt;/body&gt;</code>:</p>
-        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@neuralflow/ai-act/dist/badge.min.js"
+        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@neuralflow/ai-act@0.1.5/dist/badge.min.js"
   data-operator="Your Company"
   data-ai-system="Your AI System"
   data-lang="en"&gt;
