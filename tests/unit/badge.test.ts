@@ -28,11 +28,15 @@ describe('badge.min.js widget', () => {
       aiSystem: script.getAttribute('data-ai-system') ?? '',
       lang: (script.getAttribute('data-lang') ?? 'en') as 'de' | 'en',
       position: script.getAttribute('data-position') ?? 'bottom-right',
+      noMeta: script.getAttribute('data-no-meta') === '1',
     };
 
     if (!config.operator || !config.aiSystem) return;
 
-    // Inject metadata (simulating badge.ts injectMetadata)
+    // Inject metadata (simulating badge.ts injectMetadata) — skip if noMeta
+    if (config.noMeta) {
+      // Skip metadata injection — WordPress handles it server-side
+    } else {
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
@@ -54,6 +58,7 @@ describe('badge.min.js widget', () => {
       meta.name = tag.name;
       meta.content = tag.content;
       document.head.appendChild(meta);
+    }
     }
 
     // Create badge element
@@ -131,5 +136,16 @@ describe('badge.min.js widget', () => {
     loadBadge({ 'data-operator': 'Test', 'data-ai-system': '' });
     const badge = document.querySelector('.nf-ai-badge');
     expect(badge).toBeNull();
+  });
+
+  it('skips metadata injection when data-no-meta="1"', () => {
+    loadBadge({ 'data-operator': 'Test GmbH', 'data-ai-system': 'Claude', 'data-no-meta': '1' });
+    const jsonLd = document.querySelectorAll('script[type="application/ld+json"]');
+    const metaTags = document.querySelectorAll('meta[name="ai-generated"]');
+    expect(jsonLd.length).toBe(0);
+    expect(metaTags.length).toBe(0);
+    // Badge should still render
+    const badge = document.querySelector('.nf-ai-badge');
+    expect(badge).not.toBeNull();
   });
 });

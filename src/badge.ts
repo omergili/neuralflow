@@ -9,18 +9,20 @@ interface BadgeConfig {
   aiSystem: string;
   lang: 'de' | 'en';
   position: string;
+  noMeta: boolean;
 }
 
 function getConfig(): BadgeConfig {
   const script = document.currentScript as HTMLScriptElement | null;
   if (!script) {
-    return { operator: '', aiSystem: '', lang: 'en', position: 'bottom-right' };
+    return { operator: '', aiSystem: '', lang: 'en', position: 'bottom-right', noMeta: false };
   }
   return {
     operator: script.getAttribute('data-operator') ?? '',
     aiSystem: script.getAttribute('data-ai-system') ?? '',
     lang: (script.getAttribute('data-lang') as 'de' | 'en') ?? 'en',
     position: script.getAttribute('data-position') ?? 'bottom-right',
+    noMeta: script.getAttribute('data-no-meta') === '1',
   };
 }
 
@@ -133,7 +135,9 @@ function initWithConfig(): void {
     return;
   }
   injectStyles();
-  injectMetadata(_config);
+  if (!_config.noMeta) {
+    injectMetadata(_config);
+  }
   createBadge(_config);
 }
 
