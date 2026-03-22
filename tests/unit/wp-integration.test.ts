@@ -169,8 +169,9 @@ describe('WordPress plugin integration', () => {
       configurable: true,
     });
 
-    const fn = new Function(badgeCode);
-    fn();
+    // Badge code accesses global `document`, so ensure it's available in Function scope
+    const fn = new Function('document', badgeCode);
+    fn(document);
 
     // Badge should still render via fallback script detection
     const badge = document.querySelector('.nf-ai-badge');
