@@ -3,6 +3,7 @@
 import { parseArgs } from 'node:util';
 import { createDisclosure } from './disclosure.js';
 import { generateMetadata } from './metadata.js';
+import { checkHtmlForDisclosure } from './checker.js';
 
 interface ParsedArgs {
   values: Record<string, string | boolean | undefined>;
@@ -76,27 +77,18 @@ async function runCheck(url: string): Promise<void> {
   try {
     const response = await fetch(url);
     const html = await response.text();
+    const result = checkHtmlForDisclosure(html);
 
-    const checks = [
-      { name: 'JSON-LD (schema.org)', found: html.includes('application/ld+json') && html.includes('schema.org') },
-      { name: 'Meta: ai-generated', found: /name=["']ai-generated["']/.test(html) },
-      { name: 'Meta: ai-system', found: /name=["']ai-system["']/.test(html) },
-      { name: 'Meta: ai-operator', found: /name=["']ai-operator["']/.test(html) },
-      { name: 'Visible disclosure text', found: /ai.act|ai.transparent|ki.transparent/i.test(html) },
-    ];
-
-    let passed = 0;
-    for (const check of checks) {
+    for (const check of result.checks) {
       const status = check.found ? '✓' : '✗';
       console.log(`  ${status} ${check.name}`);
-      if (check.found) passed++;
     }
 
-    console.log(`\n${passed}/${checks.length} checks passed.`);
+    console.log(`\n${result.passed}/${result.total} checks passed.`);
 
-    if (passed === checks.length) {
+    if (result.passed === result.total) {
       console.log('Result: AI disclosure metadata found.');
-    } else if (passed > 0) {
+    } else if (result.passed > 0) {
       console.log('Result: Partial AI disclosure found. Consider adding missing elements.');
     } else {
       console.log('Result: No AI disclosure metadata found.');

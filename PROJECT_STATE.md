@@ -1,10 +1,10 @@
 # Projekt-Status
 
-Letzte Aktualisierung: 2026-03-21
+Letzte Aktualisierung: 2026-03-22
 
 ## Produkt
 
-**@neuralflow/ai-act** v0.1.1 — AI-Transparenz-Badge für Websites.
+**@neuralflow/ai-act** v0.1.4 — AI-Transparenz-Badge für Websites.
 "Der Cookie-Banner für KI. Ein Script-Tag. EU AI Act ready."
 
 ## Live URLs
@@ -24,8 +24,11 @@ Letzte Aktualisierung: 2026-03-21
 - Landing Page: neuralflow.mylurch.com — LIVE, 6/6 Tech-Check
 - Impressum + Datenschutz — LIVE
 - Dog-Fooding: Eigenes Badge auf eigener Website + allen Artikeln
-- CI/CD: GRÜN (46 Tests, 96% Coverage)
+- CI/CD: GRÜN (62 Tests)
 - GitHub Release v0.1.0, Topics gesetzt
+- checkHtmlForDisclosure(): extrahierte Check-Logik — 10 Tests
+- Online Compliance Checker: /checker.html + API-Route /api/check
+- Landing Page: Checker als primärer CTA verlinkt
 
 ## Content (mylurch.com) — LIVE
 
@@ -42,6 +45,7 @@ Letzte Aktualisierung: 2026-03-21
 
 ## Nächste Schritte
 
+- [ ] Checker deployen (Vercel auto-deploy nach Push)
 - [ ] Social-Media-Posts veröffentlichen (LinkedIn, X)
 - [ ] Hacker News "Show HN" Post
 - [ ] Dev.to Artikel
@@ -52,11 +56,11 @@ Letzte Aktualisierung: 2026-03-21
 
 ## Metriken
 
-- Tests: 46 (5 Dateien)
+- Tests: 62 (7 Dateien)
 - Coverage: 96%
 - Badge: 4.7 KB
 - Self-Check: 5/5
-- npm: v0.1.1 live
+- npm: v0.1.4 live
 - jsDelivr CDN: live
 - Blog-Artikel: 3 live auf mylurch.com
 - Seiten-Checks: 4x6/6

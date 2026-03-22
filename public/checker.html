@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Act Compliance Checker — Free Website Scanner | @neuralflow/ai-act</title>
+  <meta name="description" content="Free AI Act compliance checker. Scan any website for EU AI Act Article 50 transparency metadata. Instant results. No signup required.">
+  <meta name="ai-generated" content="true">
+  <meta name="ai-system" content="Claude Opus 4.6">
+  <meta name="ai-operator" content="NeuralFlow (Olaf Mergili)">
+  <meta property="og:title" content="AI Act Compliance Checker — Free Website Scanner">
+  <meta property="og:description" content="Scan any website for EU AI Act Article 50 compliance. Instant results. No signup.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neuralflow.mylurch.com/checker.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AI Act Compliance Checker — Free Website Scanner">
+  <meta name="twitter:description" content="Scan any website for EU AI Act Article 50 compliance. Instant results.">
+  <link rel="canonical" href="https://neuralflow.mylurch.com/checker.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Act Compliance Checker",
+    "description": "Free tool to check websites for EU AI Act Article 50 transparency metadata.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "author": { "@type": "Organization", "name": "NeuralFlow (Olaf Mergili)" }
+  }
+  </script>
+  <style>
+    :root { --bg: #0a0a0f; --text: #e0e0e0; --accent: #4f8ef7; --muted: #888; --code-bg: #1a1a2e; --green: #4caf50; --red: #ef4444; --warn: #ff9800; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    .container { max-width: 760px; margin: 0 auto; padding: 60px 24px; }
+    h1 { font-size: 2.2rem; margin-bottom: 8px; }
+    h1 span { color: var(--accent); }
+    .tagline { font-size: 1.2rem; color: var(--muted); margin-bottom: 32px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .checker-form { display: flex; gap: 12px; margin-bottom: 32px; }
+    .checker-form input {
+      flex: 1; padding: 14px 16px; font-size: 1rem; border: 2px solid #333;
+      border-radius: 8px; background: var(--code-bg); color: var(--text);
+      font-family: "SF Mono", Consolas, monospace; outline: none; transition: border-color 0.2s;
+    }
+    .checker-form input:focus { border-color: var(--accent); }
+    .checker-form button {
+      padding: 14px 28px; font-size: 1rem; font-weight: 600; border: none;
+      border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer;
+      transition: opacity 0.2s; white-space: nowrap;
+    }
+    .checker-form button:hover { opacity: 0.9; }
+    .checker-form button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .results { display: none; }
+    .results.visible { display: block; }
+
+    .result-header { margin-bottom: 20px; }
+    .result-url { font-family: "SF Mono", Consolas, monospace; font-size: 0.9rem; color: var(--muted); word-break: break-all; }
+    .result-score { font-size: 2.5rem; font-weight: bold; margin: 8px 0; }
+    .result-score.pass { color: var(--green); }
+    .result-score.partial { color: var(--warn); }
+    .result-score.fail { color: var(--red); }
+
+    .checks-list { list-style: none; margin-bottom: 32px; }
+    .checks-list li {
+      padding: 12px 16px; margin-bottom: 8px; border-radius: 8px;
+      background: var(--code-bg); display: flex; align-items: center; gap: 12px;
+      font-size: 1rem;
+    }
+    .check-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .check-icon.pass { color: var(--green); }
+    .check-icon.fail { color: var(--red); }
+
+    .cta-box {
+      background: linear-gradient(135deg, #1a1a2e, #2a1a2e); border: 1px solid var(--accent);
+      border-radius: 12px; padding: 24px; margin-top: 32px; display: none;
+    }
+    .cta-box.visible { display: block; }
+    .cta-box h3 { color: var(--accent); margin-bottom: 8px; }
+    .cta-box pre {
+      background: var(--bg); padding: 16px; border-radius: 8px; overflow-x: auto;
+      font-size: 14px; margin: 16px 0; line-height: 1.5;
+    }
+    .cta-box code { font-family: "SF Mono", Consolas, monospace; }
+
+    .error-box {
+      background: #2a1a1a; border: 1px solid var(--red); border-radius: 12px;
+      padding: 16px; color: var(--red); display: none;
+    }
+    .error-box.visible { display: block; }
+
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid #333; border-top: 2px solid var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 8px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .faq { margin-top: 48px; }
+    .faq h2 { font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; }
+    .faq h3 { font-size: 1rem; margin: 24px 0 8px; }
+    .faq p { color: var(--muted); }
+
+    .back-link { display: inline-block; margin-bottom: 24px; font-size: 0.9rem; }
+    .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #222; font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">&larr; @neuralflow/ai-act</a>
+
+    <h1>AI Act <span>Compliance Checker</span></h1>
+    <p class="tagline">Check any website for EU AI Act Article 50 transparency metadata. Free. Instant. No signup.</p>
+
+    <form class="checker-form" id="checkerForm">
+      <input type="text" id="urlInput" placeholder="https://example.com" autocomplete="url" required>
+      <button type="submit" id="submitBtn">Check</button>
+    </form>
+
+    <div class="error-box" id="errorBox"></div>
+
+    <div class="results" id="results">
+      <div class="result-header">
+        <div class="result-url" id="resultUrl"></div>
+        <div class="result-score" id="resultScore"></div>
+      </div>
+      <ul class="checks-list" id="checksList"></ul>
+
+      <div class="cta-box" id="ctaBox">
+        <h3>Fix it in 30 seconds</h3>
+        <p>Add this one script tag before <code>&lt;/body&gt;</code>:</p>
+        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@neuralflow/ai-act/dist/badge.min.js"
+  data-operator="Your Company"
+  data-ai-system="Your AI System"
+  data-lang="en"&gt;
+&lt;/script&gt;</code></pre>
+        <p>This adds all 5 compliance markers automatically. <a href="https://www.npmjs.com/package/@neuralflow/ai-act">Install from npm</a> · <a href="https://github.com/omergili/neuralflow">View on GitHub</a></p>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h2>FAQ</h2>
+
+      <h3>What does this check?</h3>
+      <p>It scans your website for 5 AI transparency markers required by EU AI Act Article 50: JSON-LD structured data, meta tags (ai-generated, ai-system, ai-operator), and visible disclosure text.</p>
+
+      <h3>Is this free?</h3>
+      <p>Yes. Free, open source (MIT), no signup, no tracking.</p>
+
+      <h3>When does the EU AI Act apply?</h3>
+      <p>Article 50 enforcement starts August 2, 2026. Penalties: up to EUR 15 million or 3% of annual global turnover.</p>
+
+      <h3>Does my website need this?</h3>
+      <p>If you use AI to generate or substantially modify content on your website, and you serve users in the EU, then yes — Article 50 requires machine-readable and human-visible labeling.</p>
+
+      <h3>What about the CLI?</h3>
+      <p>You can also check from the command line: <code>npx @neuralflow/ai-act check https://example.com</code></p>
+    </div>
+
+    <div class="footer">
+      <p><strong>Built by AI. Transparent about it.</strong> This project is built and operated by AI (Claude Opus 4.6). Owner: Olaf Mergili.</p>
+      <p style="margin-top: 12px;"><a href="/">Home</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="https://github.com/omergili/neuralflow">GitHub</a></p>
+      <p style="margin-top: 12px;">Contact: bot@mylurch.de</p>
+    </div>
+  </div>
+
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <script src="/dist/badge.min.js"
+    data-operator="NeuralFlow (Olaf Mergili)"
+    data-ai-system="Claude Opus 4.6"
+    data-lang="en">
+  </script>
+
+  <script>
+    const form = document.getElementById('checkerForm');
+    const input = document.getElementById('urlInput');
+    const btn = document.getElementById('submitBtn');
+    const results = document.getElementById('results');
+    const errorBox = document.getElementById('errorBox');
+    const resultUrl = document.getElementById('resultUrl');
+    const resultScore = document.getElementById('resultScore');
+    const checksList = document.getElementById('checksList');
+    const ctaBox = document.getElementById('ctaBox');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = input.value.trim();
+      if (!url) return;
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>Checking…';
+      results.classList.remove('visible');
+      errorBox.classList.remove('visible');
+
+      try {
+        const res = await fetch('/api/check?url=' + encodeURIComponent(url));
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorBox.textContent = data.error || 'Something went wrong.';
+          errorBox.classList.add('visible');
+          return;
+        }
+
+        resultUrl.textContent = data.url;
+        resultScore.textContent = data.passed + '/' + data.total + ' checks passed';
+
+        if (data.passed === data.total) {
+          resultScore.className = 'result-score pass';
+        } else if (data.passed > 0) {
+          resultScore.className = 'result-score partial';
+        } else {
+          resultScore.className = 'result-score fail';
+        }
+
+        checksList.innerHTML = '';
+        for (const check of data.checks) {
+          const li = document.createElement('li');
+          const icon = document.createElement('span');
+          icon.className = 'check-icon ' + (check.found ? 'pass' : 'fail');
+          icon.textContent = check.found ? '✓' : '✗';
+          const name = document.createElement('span');
+          name.textContent = check.name;
+          li.appendChild(icon);
+          li.appendChild(name);
+          checksList.appendChild(li);
+        }
+
+        ctaBox.classList.toggle('visible', data.passed < data.total);
+        results.classList.add('visible');
+      } catch {
+        errorBox.textContent = 'Network error. Please try again.';
+        errorBox.classList.add('visible');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Check';
+      }
+    });
+  </script>
+</body>
+</html>
