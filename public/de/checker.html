@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Act Compliance Checker — Free Website Scanner | @neuralflow/ai-act</title>
-  <meta name="description" content="Free AI Act compliance checker. Scan any website for EU AI Act Article 50 transparency metadata. Instant results. No signup required.">
+  <title>AI Act Compliance Checker — Kostenloser Website-Scanner | @neuralflow/ai-act</title>
+  <meta name="description" content="Kostenloser AI Act Compliance Checker. Prüfe jede Website auf EU AI Act Artikel 50 Transparenz-Metadaten. Sofort-Ergebnis. Keine Anmeldung.">
   <meta name="ai-generated" content="true">
   <meta name="ai-system" content="Claude Opus 4.6">
   <meta name="ai-operator" content="NeuralFlow (Olaf Mergili)">
-  <meta property="og:title" content="AI Act Compliance Checker — Free Website Scanner">
-  <meta property="og:description" content="Scan any website for EU AI Act Article 50 compliance. Instant results. No signup.">
+  <meta property="og:title" content="AI Act Compliance Checker — Kostenloser Website-Scanner">
+  <meta property="og:description" content="Prüfe jede Website auf EU AI Act Artikel 50 Konformität. Sofort-Ergebnis. Keine Anmeldung.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://neuralflow.mylurch.com/checker.html">
+  <meta property="og:url" content="https://neuralflow.mylurch.com/de/checker.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="AI Act Compliance Checker — Free Website Scanner">
-  <meta name="twitter:description" content="Scan any website for EU AI Act Article 50 compliance. Instant results.">
-  <link rel="canonical" href="https://neuralflow.mylurch.com/checker.html">
+  <meta name="twitter:title" content="AI Act Compliance Checker — Kostenloser Website-Scanner">
+  <meta name="twitter:description" content="Prüfe jede Website auf EU AI Act Artikel 50 Konformität. Sofort-Ergebnis.">
+  <link rel="canonical" href="https://neuralflow.mylurch.com/de/checker.html">
   <link rel="alternate" hreflang="en" href="https://neuralflow.mylurch.com/checker.html">
   <link rel="alternate" hreflang="de" href="https://neuralflow.mylurch.com/de/checker.html">
   <script type="application/ld+json">
@@ -23,7 +23,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "AI Act Compliance Checker",
-    "description": "Free tool to check websites for EU AI Act Article 50 transparency metadata.",
+    "description": "Kostenloses Tool zur Prüfung von Websites auf EU AI Act Artikel 50 Transparenz-Metadaten.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
@@ -103,20 +103,21 @@
     .faq p { color: var(--muted); }
 
     .back-link { display: inline-block; margin-bottom: 24px; font-size: 0.9rem; }
+    .lang-switch { float: right; font-size: 0.9rem; }
     .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid #222; font-size: 0.85rem; color: var(--muted); }
   </style>
 </head>
 <body>
   <div class="container">
-    <a href="/de/checker.html" style="float: right; font-size: 0.9rem;">Deutsch</a>
-    <a href="/" class="back-link">&larr; @neuralflow/ai-act</a>
+    <a href="/checker.html" class="lang-switch">English</a>
+    <a href="/de/" class="back-link">&larr; @neuralflow/ai-act</a>
 
     <h1>AI Act <span>Compliance Checker</span></h1>
-    <p class="tagline">Check any website for EU AI Act Article 50 transparency metadata. Free. Instant. No signup.</p>
+    <p class="tagline">Prüfe jede Website auf EU AI Act Artikel 50 Transparenz-Metadaten. Kostenlos. Sofort. Ohne Anmeldung.</p>
 
     <form class="checker-form" id="checkerForm">
       <input type="text" id="urlInput" placeholder="https://example.com" autocomplete="url" required>
-      <button type="submit" id="submitBtn">Check</button>
+      <button type="submit" id="submitBtn">Prüfen</button>
     </form>
 
     <div class="error-box" id="errorBox"></div>
@@ -129,40 +130,40 @@
       <ul class="checks-list" id="checksList"></ul>
 
       <div class="cta-box" id="ctaBox">
-        <h3>Fix it in 30 seconds</h3>
-        <p>Add this one script tag before <code>&lt;/body&gt;</code>:</p>
-        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@neuralflow/ai-act/dist/badge.min.js"
-  data-operator="Your Company"
-  data-ai-system="Your AI System"
-  data-lang="en"&gt;
+        <h3>In 30 Sekunden beheben</h3>
+        <p>Füge diesen Script-Tag vor <code>&lt;/body&gt;</code> ein:</p>
+        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/@neuralflow/ai-act@0.1.5/dist/badge.min.js"
+  data-operator="Dein Unternehmen"
+  data-ai-system="Dein KI-System"
+  data-lang="de"&gt;
 &lt;/script&gt;</code></pre>
-        <p>This adds all 5 compliance markers automatically. <a href="https://www.npmjs.com/package/@neuralflow/ai-act">Install from npm</a> · <a href="https://github.com/omergili/neuralflow">View on GitHub</a></p>
+        <p>Das fügt automatisch alle 5 Compliance-Marker hinzu. <a href="https://www.npmjs.com/package/@neuralflow/ai-act">Auf npm installieren</a> · <a href="https://github.com/omergili/neuralflow">Auf GitHub ansehen</a></p>
       </div>
     </div>
 
     <div class="faq">
-      <h2>FAQ</h2>
+      <h2>Häufige Fragen</h2>
 
-      <h3>What does this check?</h3>
-      <p>It scans your website for 5 AI transparency markers required by EU AI Act Article 50: JSON-LD structured data, meta tags (ai-generated, ai-system, ai-operator), and visible disclosure text.</p>
+      <h3>Was wird geprüft?</h3>
+      <p>Die Website wird auf 5 KI-Transparenz-Marker geprüft, die EU AI Act Artikel 50 verlangt: JSON-LD Structured Data, Meta-Tags (ai-generated, ai-system, ai-operator) und sichtbaren Offenlegungstext.</p>
 
-      <h3>Is this free?</h3>
-      <p>Yes. Free, open source (MIT), no signup, no tracking.</p>
+      <h3>Ist das kostenlos?</h3>
+      <p>Ja. Kostenlos, Open Source (MIT), keine Anmeldung, kein Tracking.</p>
 
-      <h3>When does the EU AI Act apply?</h3>
-      <p>Article 50 enforcement starts August 2, 2026. Penalties: up to EUR 15 million or 3% of annual global turnover.</p>
+      <h3>Ab wann gilt der EU AI Act?</h3>
+      <p>Artikel 50 wird ab dem 2. August 2026 durchgesetzt. Strafen: bis zu 15 Mio. EUR oder 3 % des weltweiten Jahresumsatzes.</p>
 
-      <h3>Does my website need this?</h3>
-      <p>If you use AI to generate or substantially modify content on your website, and you serve users in the EU, then yes — Article 50 requires machine-readable and human-visible labeling.</p>
+      <h3>Braucht meine Website das?</h3>
+      <p>Wenn du KI nutzt, um Inhalte auf deiner Website zu erstellen oder wesentlich zu verändern, und du Nutzer in der EU bedienst — ja. Artikel 50 verlangt maschinenlesbare und für Menschen sichtbare Kennzeichnung.</p>
 
-      <h3>What about the CLI?</h3>
-      <p>You can also check from the command line: <code>npx @neuralflow/ai-act check https://example.com</code></p>
+      <h3>Geht das auch über die Kommandozeile?</h3>
+      <p>Ja: <code>npx @neuralflow/ai-act check https://example.com</code></p>
     </div>
 
     <div class="footer">
-      <p><strong>Built by AI. Transparent about it.</strong> This project is built and operated by AI (Claude Opus 4.6). Owner: Olaf Mergili.</p>
-      <p style="margin-top: 12px;"><a href="/">Home</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="https://github.com/omergili/neuralflow">GitHub</a></p>
-      <p style="margin-top: 12px;">Contact: bot@mylurch.de</p>
+      <p><strong>Von KI gebaut. Transparent darüber.</strong> Dieses Projekt wird von KI (Claude Opus 4.6) entwickelt und betrieben. Inhaber: Olaf Mergili.</p>
+      <p style="margin-top: 12px;"><a href="/de/">Startseite</a> · <a href="/impressum.html">Impressum</a> · <a href="/datenschutz.html">Datenschutz</a> · <a href="https://github.com/omergili/neuralflow">GitHub</a></p>
+      <p style="margin-top: 12px;">Kontakt: bot@mylurch.de</p>
     </div>
   </div>
 
@@ -171,7 +172,7 @@
   <script src="/dist/badge.min.js"
     data-operator="NeuralFlow (Olaf Mergili)"
     data-ai-system="Claude Opus 4.6"
-    data-lang="en">
+    data-lang="de">
   </script>
 
   <script>
@@ -191,7 +192,7 @@
       if (!url) return;
 
       btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span>Checking…';
+      btn.innerHTML = '<span class="spinner"></span>Prüfe…';
       results.classList.remove('visible');
       errorBox.classList.remove('visible');
 
@@ -200,13 +201,13 @@
         const data = await res.json();
 
         if (!res.ok) {
-          errorBox.textContent = data.error || 'Something went wrong.';
+          errorBox.textContent = data.error || 'Etwas ist schiefgelaufen.';
           errorBox.classList.add('visible');
           return;
         }
 
         resultUrl.textContent = data.url;
-        resultScore.textContent = data.passed + '/' + data.total + ' checks passed';
+        resultScore.textContent = data.passed + '/' + data.total + ' Checks bestanden';
 
         if (data.passed === data.total) {
           resultScore.className = 'result-score pass';
@@ -232,11 +233,11 @@
         ctaBox.classList.toggle('visible', data.passed < data.total);
         results.classList.add('visible');
       } catch {
-        errorBox.textContent = 'Network error. Please try again.';
+        errorBox.textContent = 'Netzwerkfehler. Bitte erneut versuchen.';
         errorBox.classList.add('visible');
       } finally {
         btn.disabled = false;
-        btn.textContent = 'Check';
+        btn.textContent = 'Prüfen';
       }
     });
   </script>
