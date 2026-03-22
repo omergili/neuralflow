@@ -145,19 +145,36 @@
       <h2>Häufige Fragen</h2>
 
       <h3>Was wird geprüft?</h3>
-      <p>Die Website wird auf 5 KI-Transparenz-Marker geprüft, die EU AI Act Artikel 50 verlangt: JSON-LD Structured Data, Meta-Tags (ai-generated, ai-system, ai-operator) und sichtbaren Offenlegungstext.</p>
+      <p>Der Checker prüft deine Website auf 5 Transparenz-Marker, die helfen, die Anforderungen von EU AI Act Artikel 50 umzusetzen:</p>
+      <ul style="color: var(--muted); margin-top: 8px;">
+        <li><strong style="color: var(--text);">JSON-LD (schema.org)</strong> — Strukturierte Daten im Quellcode deiner Seite, die Suchmaschinen und Behörden maschinenlesbar zeigen: „Diese Seite enthält KI-generierte Inhalte."</li>
+        <li><strong style="color: var(--text);">Meta: ai-generated</strong> — Ein HTML-Meta-Tag, der signalisiert, dass KI an der Inhaltserstellung beteiligt war.</li>
+        <li><strong style="color: var(--text);">Meta: ai-system</strong> — Nennt das verwendete KI-System (z.B. ChatGPT, Claude, Midjourney).</li>
+        <li><strong style="color: var(--text);">Meta: ai-operator</strong> — Nennt den Verantwortlichen, der das KI-System einsetzt (z.B. dein Unternehmen).</li>
+        <li><strong style="color: var(--text);">Sichtbarer Offenlegungstext</strong> — Ein für Besucher sichtbarer Hinweis auf der Seite selbst.</li>
+      </ul>
+
+      <h3>Was bedeutet mein Ergebnis?</h3>
+      <p><strong style="color: var(--green);">5/5</strong> — Alle Marker vorhanden. Deine Seite ist gut aufgestellt.</p>
+      <p><strong style="color: var(--warn);">1-4/5</strong> — Teilweise vorhanden. Die fehlenden Marker solltest du ergänzen. Unser Script-Tag setzt alle 5 automatisch.</p>
+      <p><strong style="color: var(--red);">0/5</strong> — Keine KI-Kennzeichnung erkannt. Wenn du KI für Inhalte nutzt, solltest du handeln.</p>
 
       <h3>Ist das kostenlos?</h3>
       <p>Ja. Kostenlos, Open Source (MIT), keine Anmeldung, kein Tracking.</p>
 
       <h3>Ab wann gilt der EU AI Act?</h3>
-      <p>Artikel 50 wird ab dem 2. August 2026 durchgesetzt. Strafen: bis zu 15 Mio. EUR oder 3 % des weltweiten Jahresumsatzes.</p>
+      <p>Die Transparenzpflichten aus Artikel 50 werden ab dem 2. August 2026 durchgesetzt. Strafen: bis zu 15 Mio. EUR oder 3 % des weltweiten Jahresumsatzes.</p>
 
       <h3>Braucht meine Website das?</h3>
       <p>Wenn du KI nutzt, um Inhalte auf deiner Website zu erstellen oder wesentlich zu verändern, und du Nutzer in der EU bedienst — ja. Artikel 50 verlangt maschinenlesbare und für Menschen sichtbare Kennzeichnung.</p>
 
       <h3>Geht das auch über die Kommandozeile?</h3>
       <p>Ja: <code>npx @neuralflow/ai-act check https://example.com</code></p>
+
+      <h3>Gibt es ein WordPress-Plugin?</h3>
+      <p>Ja. <a href="https://github.com/omergili/neuralflow-wp/releases">NeuralFlow AI Act für WordPress</a> — installieren, aktivieren, fertig.</p>
+
+      <p style="margin-top: 32px; font-size: 0.8rem; color: var(--muted);"><em>Hinweis: Dieses Tool unterstützt bei der KI-Transparenz-Kennzeichnung. Es stellt keine Rechtsberatung dar. Die Verantwortung für die Einhaltung gesetzlicher Vorgaben liegt beim Betreiber.</em></p>
     </div>
 
     <div class="footer">

@@ -145,19 +145,36 @@
       <h2>FAQ</h2>
 
       <h3>What does this check?</h3>
-      <p>It scans your website for 5 AI transparency markers required by EU AI Act Article 50: JSON-LD structured data, meta tags (ai-generated, ai-system, ai-operator), and visible disclosure text.</p>
+      <p>The checker scans your website for 5 transparency markers that help implement the requirements of EU AI Act Article 50:</p>
+      <ul style="color: var(--muted); margin-top: 8px;">
+        <li><strong style="color: var(--text);">JSON-LD (schema.org)</strong> — Structured data in your page source that tells search engines and authorities in a machine-readable way: "This page contains AI-generated content."</li>
+        <li><strong style="color: var(--text);">Meta: ai-generated</strong> — An HTML meta tag signaling that AI was involved in content creation.</li>
+        <li><strong style="color: var(--text);">Meta: ai-system</strong> — Names the AI system used (e.g. ChatGPT, Claude, Midjourney).</li>
+        <li><strong style="color: var(--text);">Meta: ai-operator</strong> — Names the responsible party deploying the AI system (e.g. your company).</li>
+        <li><strong style="color: var(--text);">Visible disclosure text</strong> — A human-visible notice on the page itself.</li>
+      </ul>
+
+      <h3>What does my score mean?</h3>
+      <p><strong style="color: var(--green);">5/5</strong> — All markers present. Your page is well prepared.</p>
+      <p><strong style="color: var(--warn);">1-4/5</strong> — Partially present. You should add the missing markers. Our script tag sets all 5 automatically.</p>
+      <p><strong style="color: var(--red);">0/5</strong> — No AI labeling detected. If you use AI for content, you should take action.</p>
 
       <h3>Is this free?</h3>
       <p>Yes. Free, open source (MIT), no signup, no tracking.</p>
 
       <h3>When does the EU AI Act apply?</h3>
-      <p>Article 50 enforcement starts August 2, 2026. Penalties: up to EUR 15 million or 3% of annual global turnover.</p>
+      <p>The transparency obligations under Article 50 will be enforced starting August 2, 2026. Penalties: up to EUR 15 million or 3% of annual global turnover.</p>
 
       <h3>Does my website need this?</h3>
       <p>If you use AI to generate or substantially modify content on your website, and you serve users in the EU, then yes — Article 50 requires machine-readable and human-visible labeling.</p>
 
       <h3>What about the CLI?</h3>
       <p>You can also check from the command line: <code>npx @neuralflow/ai-act check https://example.com</code></p>
+
+      <h3>Is there a WordPress plugin?</h3>
+      <p>Yes. <a href="https://github.com/omergili/neuralflow-wp/releases">NeuralFlow AI Act for WordPress</a> — install, activate, done.</p>
+
+      <p style="margin-top: 32px; font-size: 0.8rem; color: var(--muted);"><em>Disclaimer: This tool assists with AI transparency disclosure. It does not constitute legal advice. Users are responsible for their own regulatory compliance.</em></p>
     </div>
 
     <div class="footer">
