@@ -12,8 +12,20 @@ interface BadgeConfig {
   noMeta: boolean;
 }
 
+function findScriptTag(): HTMLScriptElement | null {
+  // Primary: document.currentScript (works for synchronous scripts)
+  if (document.currentScript) {
+    return document.currentScript as HTMLScriptElement;
+  }
+  // Fallback: find script tag by data attribute or src (works when deferred by cache plugins)
+  const byAttr = document.querySelector('script[data-operator][data-ai-system]') as HTMLScriptElement | null;
+  if (byAttr) return byAttr;
+  const bySrc = document.querySelector('script[src*="badge.min.js"]') as HTMLScriptElement | null;
+  return bySrc;
+}
+
 function getConfig(): BadgeConfig {
-  const script = document.currentScript as HTMLScriptElement | null;
+  const script = findScriptTag();
   if (!script) {
     return { operator: '', aiSystem: '', lang: 'en', position: 'bottom-right', noMeta: false };
   }
@@ -126,19 +138,22 @@ function createBadge(config: BadgeConfig): void {
   document.body.appendChild(popup);
 }
 
-// Capture config immediately (document.currentScript is only available during sync execution)
+// Capture config: uses document.currentScript for sync execution,
+// falls back to DOM query for deferred/async execution (cache plugins like LiteSpeed)
 const _config = typeof document !== 'undefined' ? getConfig() : null;
 
 function initWithConfig(): void {
-  if (!_config || !_config.operator || !_config.aiSystem) {
-    if (_config) console.warn('[ai-act] Missing data-operator or data-ai-system attribute.');
+  // Re-try config if initial capture failed (script was deferred but DOM wasn't ready yet)
+  const config = (_config && _config.operator) ? _config : (typeof document !== 'undefined' ? getConfig() : null);
+  if (!config || !config.operator || !config.aiSystem) {
+    if (config) console.warn('[ai-act] Missing data-operator or data-ai-system attribute.');
     return;
   }
   injectStyles();
-  if (!_config.noMeta) {
-    injectMetadata(_config);
+  if (!config.noMeta) {
+    injectMetadata(config);
   }
-  createBadge(_config);
+  createBadge(config);
 }
 
 if (typeof document !== 'undefined') {

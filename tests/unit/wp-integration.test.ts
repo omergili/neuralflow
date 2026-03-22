@@ -144,6 +144,42 @@ describe('WordPress plugin integration', () => {
     expect(badge?.getAttribute('data-pos')).toBe('bottom-left');
   });
 
+  it('renders badge when document.currentScript is null (deferred by LiteSpeed)', () => {
+    // Simulate server-side metadata
+    const meta = document.createElement('meta');
+    meta.name = 'ai-generated';
+    meta.content = 'true';
+    document.head.appendChild(meta);
+
+    // Create script tag in DOM (as WordPress would), but set currentScript to null
+    // This simulates what happens when LiteSpeed Cache defers the script.
+    // Don't set src to avoid happy-dom trying to load it.
+    const scriptTag = document.createElement('script');
+    scriptTag.setAttribute('data-operator', 'Deferred Corp');
+    scriptTag.setAttribute('data-ai-system', 'Claude');
+    scriptTag.setAttribute('data-lang', 'de');
+    scriptTag.setAttribute('data-position', 'bottom-right');
+    scriptTag.setAttribute('data-no-meta', '1');
+    document.head.appendChild(scriptTag);
+
+    // Set currentScript to null (simulating deferred execution)
+    Object.defineProperty(document, 'currentScript', {
+      value: null,
+      writable: true,
+      configurable: true,
+    });
+
+    const fn = new Function(badgeCode);
+    fn();
+
+    // Badge should still render via fallback script detection
+    const badge = document.querySelector('.nf-ai-badge');
+    expect(badge).not.toBeNull();
+    expect(document.querySelector('.nf-ai-badge-btn')!.textContent).toContain('KI-Transparent');
+    // No duplicate metadata (data-no-meta="1" respected)
+    expect(document.querySelectorAll('meta[name="ai-generated"]').length).toBe(1);
+  });
+
   it('creates disclosure popup with operator and AI system', () => {
     simulateWPOutput({
       operator: 'ACME Corp',
