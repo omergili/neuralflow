@@ -1,5 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// --- Rate Limiting ---
+
+const RATE_LIMIT = 10; // Requests pro Minute
+const RATE_WINDOW = 60_000; // 1 Minute in ms
+
+const requestLog = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = requestLog.get(ip) ?? [];
+  const recent = timestamps.filter((t) => now - t < RATE_WINDOW);
+  recent.push(now);
+  requestLog.set(ip, recent);
+
+  // Cleanup alte Einträge alle 100 Requests
+  if (requestLog.size > 1000) {
+    for (const [key, val] of requestLog) {
+      if (val.every((t) => now - t > RATE_WINDOW)) requestLog.delete(key);
+    }
+  }
+
+  return recent.length > RATE_LIMIT;
+}
+
 // --- Types ---
 
 type Severity = "critical" | "warning" | "info";
@@ -262,6 +286,15 @@ function categorize(checks: Check[]): Record<Category, { passed: number; total: 
 // --- Route Handler ---
 
 export async function GET(request: NextRequest) {
+  // Rate Limiting
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded. Max 10 scans per minute." },
+      { status: 429, headers: { "Retry-After": "60" } }
+    );
+  }
+
   const url = request.nextUrl.searchParams.get("url");
 
   if (!url) {
