@@ -1,58 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-type Severity = "critical" | "warning" | "info";
-type Category = "transparency" | "documentation" | "technical" | "content";
-
-interface Check {
-  id: string;
-  name: string;
-  category: Category;
-  article: string;
-  severity: Severity;
-  passed: boolean;
-  recommendation: string;
-}
-
-interface CategoryScore {
-  passed: number;
-  total: number;
-  score: number;
-}
-
-interface ScanResult {
-  url: string;
-  score: number;
-  grade: string;
-  checks: Check[];
-  passed: number;
-  failed: number;
-  total: number;
-  categories: Record<Category, CategoryScore>;
-  scanned_at: string;
-}
-
-const STORAGE_KEY = "neuralflow_scan_history";
-const MAX_HISTORY = 20;
-
-function loadHistory(): ScanResult[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveToHistory(result: ScanResult) {
-  const history = loadHistory();
-  // Remove existing entry for same URL
-  const filtered = history.filter((h) => h.url !== result.url);
-  filtered.unshift(result);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered.slice(0, MAX_HISTORY)));
-}
+import { saveScan, loadScans } from "@/lib/db";
+import type { ScanResult, Category, Severity, CategoryScore, Check } from "@/lib/db";
 
 const CATEGORY_LABELS: Record<Category, { label: string; icon: string }> = {
   transparency: { label: "Transparenz", icon: "👁" },
@@ -195,7 +145,7 @@ export default function DomainsPage() {
   const [history, setHistory] = useState<ScanResult[]>([]);
 
   useEffect(() => {
-    setHistory(loadHistory());
+    loadScans().then(setHistory);
   }, []);
 
   async function runScan(scanUrl: string) {
@@ -214,8 +164,9 @@ export default function DomainsPage() {
 
       const scanResult = data as ScanResult;
       setResult(scanResult);
-      saveToHistory(scanResult);
-      setHistory(loadHistory());
+      await saveScan(scanResult);
+      const updated = await loadScans();
+      setHistory(updated);
     } catch {
       setError("Scan fehlgeschlagen. Bitte URL prüfen.");
     } finally {

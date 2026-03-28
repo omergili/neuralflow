@@ -1,42 +1,23 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const STORAGE_KEY = "neuralflow_scan_history";
-
-interface ScanResult {
-  url: string;
-  score: number;
-  grade: string;
-  passed: number;
-  total: number;
-  scanned_at: string;
-}
-
-function loadHistory(): ScanResult[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
+import { loadScans, deleteAllScans } from "@/lib/db";
+import type { ScanResult } from "@/lib/db";
 
 export default function SettingsPage() {
   const [history, setHistory] = useState<ScanResult[]>([]);
   const [cleared, setCleared] = useState(false);
 
   useEffect(() => {
-    setHistory(loadHistory());
+    loadScans().then(setHistory);
   }, []);
 
   const domainCount = history.length;
   const totalChecks = history.reduce((s, h) => s + h.total, 0);
   const avgScore = domainCount > 0 ? Math.round(history.reduce((s, h) => s + h.score, 0) / domainCount) : 0;
 
-  function clearHistory() {
-    localStorage.removeItem(STORAGE_KEY);
+  async function clearHistory() {
+    await deleteAllScans();
     setHistory([]);
     setCleared(true);
     setTimeout(() => setCleared(false), 3000);
