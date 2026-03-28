@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Severity = "critical" | "warning" | "info";
 type Category = "transparency" | "documentation" | "technical" | "content";
@@ -31,6 +31,27 @@ interface ScanResult {
   total: number;
   categories: Record<Category, CategoryScore>;
   scanned_at: string;
+}
+
+const STORAGE_KEY = "neuralflow_scan_history";
+const MAX_HISTORY = 20;
+
+function loadHistory(): ScanResult[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveToHistory(result: ScanResult) {
+  const history = loadHistory();
+  // Remove existing entry for same URL
+  const filtered = history.filter((h) => h.url !== result.url);
+  filtered.unshift(result);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered.slice(0, MAX_HISTORY)));
 }
 
 const CATEGORY_LABELS: Record<Category, { label: string; icon: string }> = {
@@ -144,20 +165,46 @@ function CheckItem({ check }: { check: Check }) {
   );
 }
 
+function HistoryCard({ scan, onRescan }: { scan: ScanResult; onRescan: (url: string) => void }) {
+  return (
+    <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-4 flex items-center gap-4">
+      <div className={`text-2xl font-bold w-12 text-center ${GRADE_COLORS[scan.grade] || "text-gray-400"}`}>
+        {scan.grade}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="text-gray-200 text-sm font-medium truncate">{scan.url}</div>
+        <div className="text-gray-500 text-xs">
+          {scan.passed}/{scan.total} Checks · {new Date(scan.scanned_at).toLocaleString("de-DE")}
+        </div>
+      </div>
+      <button
+        onClick={() => onRescan(scan.url)}
+        className="text-[#4f8ef7] hover:text-[#3d7ae5] text-sm transition whitespace-nowrap"
+      >
+        Erneut scannen
+      </button>
+    </div>
+  );
+}
+
 export default function DomainsPage() {
   const [url, setUrl] = useState("");
   const [scanning, setScanning] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<ScanResult | null>(null);
+  const [history, setHistory] = useState<ScanResult[]>([]);
 
-  async function handleScan(e: React.FormEvent) {
-    e.preventDefault();
+  useEffect(() => {
+    setHistory(loadHistory());
+  }, []);
+
+  async function runScan(scanUrl: string) {
     setScanning(true);
     setResult(null);
     setError("");
 
     try {
-      const res = await fetch(`/api/scan?url=${encodeURIComponent(url)}`);
+      const res = await fetch(`/api/scan?url=${encodeURIComponent(scanUrl)}`);
       const data = await res.json();
 
       if (!res.ok) {
@@ -165,12 +212,20 @@ export default function DomainsPage() {
         return;
       }
 
-      setResult(data as ScanResult);
+      const scanResult = data as ScanResult;
+      setResult(scanResult);
+      saveToHistory(scanResult);
+      setHistory(loadHistory());
     } catch {
       setError("Scan fehlgeschlagen. Bitte URL prüfen.");
     } finally {
       setScanning(false);
     }
+  }
+
+  async function handleScan(e: React.FormEvent) {
+    e.preventDefault();
+    await runScan(url);
   }
 
   const failedChecks = result?.checks.filter((c) => !c.passed) || [];
@@ -208,7 +263,7 @@ export default function DomainsPage() {
       )}
 
       {result && (
-        <div className="space-y-6">
+        <div className="space-y-6 mb-8">
           {/* Score Overview */}
           <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-6">
             <div className="flex items-start gap-6">
@@ -256,6 +311,42 @@ export default function DomainsPage() {
             </div>
           )}
 
+          {/* Export */}
+          <div className="flex gap-3">
+            <button
+              onClick={() => {
+                const blob = new Blob([JSON.stringify(result, null, 2)], { type: "application/json" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = `neuralflow-report-${result.url.replace(/https?:\/\//, "").replace(/[^a-z0-9]/gi, "-")}-${new Date(result.scanned_at).toISOString().slice(0, 10)}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+              }}
+              className="flex items-center gap-2 bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition"
+            >
+              <span>📄</span> JSON exportieren
+            </button>
+            <button
+              onClick={() => {
+                const lines = [
+                  "Check,Kategorie,Artikel,Schwere,Bestanden,Empfehlung",
+                  ...result.checks.map(c =>
+                    `"${c.name}","${c.category}","${c.article}","${c.severity}","${c.passed ? "Ja" : "Nein"}","${c.recommendation.replace(/"/g, '""')}"`
+                  ),
+                ];
+                const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = `neuralflow-report-${result.url.replace(/https?:\/\//, "").replace(/[^a-z0-9]/gi, "-")}.csv`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+              }}
+              className="flex items-center gap-2 bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition"
+            >
+              <span>📊</span> CSV exportieren
+            </button>
+          </div>
+
           {/* NeuralFlow CTA */}
           <div className="bg-[#4f8ef7]/10 border border-[#4f8ef7]/30 rounded-lg p-5 text-center">
             <p className="text-gray-300 text-sm mb-2">
@@ -265,6 +356,25 @@ export default function DomainsPage() {
               <code className="text-[#4f8ef7]">npm install @neuralflow/ai-act</code> — Generiert
               konforme Meta-Tags, JSON-LD und Disclosure-Texte automatisch.
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Scan History */}
+      {history.length > 0 && (
+        <div>
+          <h2 className="text-lg font-semibold text-gray-300 mb-3">Letzte Scans</h2>
+          <div className="space-y-2">
+            {history.map((scan) => (
+              <HistoryCard
+                key={scan.url + scan.scanned_at}
+                scan={scan}
+                onRescan={(u) => {
+                  setUrl(u);
+                  runScan(u);
+                }}
+              />
+            ))}
           </div>
         </div>
       )}
