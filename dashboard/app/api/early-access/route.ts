@@ -13,20 +13,24 @@ export async function POST(request: NextRequest) {
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl || !supabaseKey) {
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.error("Missing Supabase env vars:", {
+        url: !!supabaseUrl,
+        anonKey: !!supabaseAnonKey,
+      });
       return NextResponse.json(
-        { success: true, message: "Danke! Wir melden uns bei dir." },
-        { status: 200 }
+        { error: "Server-Konfiguration unvollständig." },
+        { status: 500 }
       );
     }
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
     const { error } = await supabase
-      .from("early_access_signups")
-      .insert({ email: email.toLowerCase().trim(), source: "landing_page" });
+      .from("early_access")
+      .insert({ email: email.toLowerCase().trim() });
 
     if (error) {
       if (error.code === "23505") {
