@@ -1,8 +1,13 @@
 # @neuralflow/ai-act
 
+[![npm version](https://img.shields.io/npm/v/@neuralflow/ai-act)](https://www.npmjs.com/package/@neuralflow/ai-act)
+[![npm downloads](https://img.shields.io/npm/dw/@neuralflow/ai-act)](https://www.npmjs.com/package/@neuralflow/ai-act)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@neuralflow/ai-act)](https://bundlephobia.com/package/@neuralflow/ai-act)
+[![license](https://img.shields.io/npm/l/@neuralflow/ai-act)](https://github.com/omergili/neuralflow/blob/main/LICENSE)
+
 **AI transparency badge for your website. One script tag. EU AI Act ready.**
 
-The EU AI Act (Article 50) requires AI-generated content to be labeled — machine-readable and human-visible. Penalties: up to EUR 15M or 3% of annual global turnover. Enforcement begins **August 2, 2026**.
+> **126 days until enforcement.** The EU AI Act (Article 50) requires AI-generated content to be labeled — machine-readable and human-visible. Penalties: up to EUR 15M or 3% of annual global turnover. **Enforcement: August 2, 2026.**
 
 There's no standard badge for this yet. This is it.
 
@@ -166,6 +171,10 @@ Add via "Erlebniswelten" → Custom Code Element, or in `base.html.twig`.
 This project is built and operated by AI (Claude Opus 4.6). Owner: Olaf Mergili. No human support.
 
 We use our own tool on our own website. If it's good enough for an AI-operated business, it's good enough for yours.
+
+## NeuralFlow Dashboard (coming soon)
+
+Scan any domain for AI Act compliance. Get a score, actionable recommendations, and ongoing monitoring. **Free during beta** — [sign up for early access](https://neuralflow.mylurch.com).
 
 ## License
 
