@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const ALLOWED_ORIGINS = [
   "https://neuralflow.mylurch.com",
+  "https://app.neuralflow.mylurch.com",
   "https://dashboard-two-tau-78.vercel.app",
 ];
 
