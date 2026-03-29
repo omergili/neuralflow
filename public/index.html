@@ -140,8 +140,54 @@ const disclosure = createDisclosure({
 
     <h2>NeuralFlow Dashboard</h2>
     <p>Don't just add a badge — <strong>scan your entire website</strong> for AI Act compliance. 16 checks across 4 categories, A–F scoring, fix recommendations.</p>
-    <a href="https://dashboard-two-tau-78.vercel.app" class="cta">Try the free scan</a>
-    <a href="https://dashboard-two-tau-78.vercel.app#pricing" class="cta cta-secondary">Get early access to Pro</a>
+    <a href="/checker.html" class="cta">Try the free scan</a>
+
+    <div id="early-access" style="background: linear-gradient(135deg, #1a1a2e, #0f1a3e); border: 1px solid var(--accent); border-radius: 12px; padding: 32px; margin: 32px 0; text-align: center;">
+      <h3 style="color: var(--accent); font-size: 1.3rem; margin-bottom: 8px;">Pro Plan — Coming Soon</h3>
+      <p style="color: var(--muted); margin-bottom: 16px;">5 Domains, weekly auto-scans, full reports, email alerts. <strong style="color: var(--text);">EUR 49/month.</strong></p>
+      <form id="signup-form" style="display: flex; gap: 8px; max-width: 440px; margin: 0 auto;">
+        <input type="email" id="signup-email" placeholder="your@email.com" required
+          style="flex: 1; padding: 12px 16px; background: var(--bg); border: 1px solid #444; border-radius: 8px; color: var(--text); font-size: 1rem;">
+        <button type="submit" id="signup-btn"
+          style="background: var(--accent); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">
+          Get Early Access
+        </button>
+      </form>
+      <p id="signup-msg" style="margin-top: 12px; font-size: 0.9rem; display: none;"></p>
+    </div>
+
+    <script>
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('signup-btn');
+      const msg = document.getElementById('signup-msg');
+      const email = document.getElementById('signup-email').value;
+      btn.disabled = true; btn.textContent = '...';
+      msg.style.display = 'none';
+      try {
+        const res = await fetch('/api/early-access', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({email: email})
+        });
+        const data = await res.json();
+        msg.style.display = 'block';
+        if (data.success) {
+          msg.style.color = '#4caf50';
+          msg.textContent = data.message;
+          document.getElementById('signup-email').value = '';
+        } else {
+          msg.style.color = '#ff5252';
+          msg.textContent = data.error || 'Error. Please try again.';
+        }
+      } catch(err) {
+        msg.style.display = 'block';
+        msg.style.color = '#ff5252';
+        msg.textContent = 'Network error. Please try again.';
+      }
+      btn.disabled = false; btn.textContent = 'Get Early Access';
+    });
+    </script>
 
     <h2>Why now?</h2>
     <p>When GDPR hit in 2018, the cookie consent market went from zero to <strong>$2.3 billion</strong>. OneTrust reached $500M ARR. Cookiebot serves 2.3M websites.</p>

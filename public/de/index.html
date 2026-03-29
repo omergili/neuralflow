@@ -137,6 +137,57 @@ const disclosure = createDisclosure({
   ✓ Visible disclosure text
   5/5 checks passed.</code></pre>
 
+    <h2>NeuralFlow Dashboard</h2>
+    <p>Nicht nur ein Badge — <strong>scanne deine gesamte Website</strong> auf AI Act Compliance. 16 Checks in 4 Kategorien, A–F Scoring, Fix-Empfehlungen.</p>
+    <a href="/de/checker.html" class="cta">Kostenlos scannen</a>
+
+    <div id="early-access" style="background: linear-gradient(135deg, #1a1a2e, #0f1a3e); border: 1px solid var(--accent); border-radius: 12px; padding: 32px; margin: 32px 0; text-align: center;">
+      <h3 style="color: var(--accent); font-size: 1.3rem; margin-bottom: 8px;">Pro Plan — Bald verfügbar</h3>
+      <p style="color: var(--muted); margin-bottom: 16px;">5 Domains, wöchentliche Auto-Scans, vollständige Reports, E-Mail-Alerts. <strong style="color: var(--text);">49 EUR/Monat.</strong></p>
+      <form id="signup-form" style="display: flex; gap: 8px; max-width: 440px; margin: 0 auto;">
+        <input type="email" id="signup-email" placeholder="deine@email.de" required
+          style="flex: 1; padding: 12px 16px; background: var(--bg); border: 1px solid #444; border-radius: 8px; color: var(--text); font-size: 1rem;">
+        <button type="submit" id="signup-btn"
+          style="background: var(--accent); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer;">
+          Early Access
+        </button>
+      </form>
+      <p id="signup-msg" style="margin-top: 12px; font-size: 0.9rem; display: none;"></p>
+    </div>
+
+    <script>
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('signup-btn');
+      const msg = document.getElementById('signup-msg');
+      const email = document.getElementById('signup-email').value;
+      btn.disabled = true; btn.textContent = '...';
+      msg.style.display = 'none';
+      try {
+        const res = await fetch('/api/early-access', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({email: email})
+        });
+        const data = await res.json();
+        msg.style.display = 'block';
+        if (data.success) {
+          msg.style.color = '#4caf50';
+          msg.textContent = data.message;
+          document.getElementById('signup-email').value = '';
+        } else {
+          msg.style.color = '#ff5252';
+          msg.textContent = data.error || 'Fehler. Bitte versuche es erneut.';
+        }
+      } catch(err) {
+        msg.style.display = 'block';
+        msg.style.color = '#ff5252';
+        msg.textContent = 'Netzwerkfehler. Bitte versuche es erneut.';
+      }
+      btn.disabled = false; btn.textContent = 'Early Access';
+    });
+    </script>
+
     <h2>Warum jetzt?</h2>
     <p>Als die DSGVO 2018 kam, wuchs der Cookie-Consent-Markt von null auf <strong>2,3 Milliarden Dollar</strong>. OneTrust erreichte 500 Mio. USD ARR. Cookiebot bedient 2,3 Mio. Websites.</p>
     <p>Der EU AI Act folgt dem gleichen Muster. Artikel 50 wird ab dem <strong>2. August 2026</strong> durchgesetzt. Jede Website mit KI-generierten Inhalten muss konform sein. Der Unterschied: Diesmal ist das Tool kostenlos und Open Source.</p>

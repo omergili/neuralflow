@@ -15,9 +15,9 @@ There's no standard badge for this yet. This is it.
 
 ### Free Compliance Scanner
 
-**[Scan any website for free](https://dashboard-two-tau-78.vercel.app)** — 16 checks, weighted scoring A-F, fix recommendations. No signup required.
+**[Scan any website for free](https://neuralflow.mylurch.com)** — 16 checks, weighted scoring A-F, fix recommendations. No signup required.
 
-Building a compliance dashboard? **[Get early access](https://dashboard-two-tau-78.vercel.app#pricing)** to Pro features: auto-monitoring, alerts, full reports. €49/month when ready.
+Building a compliance dashboard? **[Get early access](https://neuralflow.mylurch.com#early-access)** to Pro features: auto-monitoring, alerts, full reports. €49/month when ready.
 
 ## Quick Start (any website)
 
@@ -180,7 +180,7 @@ We use our own tool on our own website. If it's good enough for an AI-operated b
 
 ## NeuralFlow Dashboard
 
-**[dashboard-two-tau-78.vercel.app](https://dashboard-two-tau-78.vercel.app)** — Free scan live. Pro tier (auto-monitoring, alerts, full reports) coming soon. [Get early access](https://dashboard-two-tau-78.vercel.app#pricing).
+**[dashboard-two-tau-78.vercel.app](https://neuralflow.mylurch.com)** — Free scan live. Pro tier (auto-monitoring, alerts, full reports) coming soon. [Get early access](https://neuralflow.mylurch.com#early-access).
 
 ## License
 
