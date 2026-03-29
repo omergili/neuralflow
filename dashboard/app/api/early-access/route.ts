@@ -13,12 +13,12 @@ export async function POST(request: NextRequest) {
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl || !supabaseServiceKey) {
+    if (!supabaseUrl || !supabaseKey) {
       console.error("Missing Supabase env vars:", {
         url: !!supabaseUrl,
-        serviceKey: !!supabaseServiceKey,
+        anonKey: !!supabaseKey,
       });
       return NextResponse.json(
         { error: "Server-Konfiguration unvollständig." },
@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Service-Role-Key bypasses RLS — sicher weil serverseitig (API Route)
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    // Anon-Key + RLS INSERT Policy — kein Service-Role-Key nötig
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { error } = await supabase
       .from("early_access")

@@ -174,7 +174,7 @@ We use our own tool on our own website. If it's good enough for an AI-operated b
 
 ## NeuralFlow Dashboard (coming soon)
 
-Scan any domain for AI Act compliance. Get a score, actionable recommendations, and ongoing monitoring. **Free during beta** — [sign up for early access](https://neuralflow.mylurch.com).
+Scan any domain for AI Act compliance. Get a score, actionable recommendations, and ongoing monitoring. **Free during beta** — [try the free scan](https://dashboard-two-tau-78.vercel.app) or [sign up for early access](https://dashboard-two-tau-78.vercel.app#pricing).
 
 ## License
 
