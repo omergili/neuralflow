@@ -1,32 +1,55 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+const ALLOWED_ORIGINS = [
+  "https://neuralflow.mylurch.com",
+  "https://dashboard-two-tau-78.vercel.app",
+];
+
+function corsHeaders(origin: string | null) {
+  const allowed = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
+function jsonWithCors(body: object, status: number, origin: string | null) {
+  return NextResponse.json(body, { status, headers: corsHeaders(origin) });
+}
+
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  return new NextResponse(null, { status: 204, headers: corsHeaders(origin) });
+}
+
 export async function POST(request: NextRequest) {
+  const origin = request.headers.get("origin");
   try {
     const { email } = await request.json();
 
     if (!email || !email.includes("@") || email.length < 5) {
-      return NextResponse.json(
+      return jsonWithCors(
         { error: "Bitte gib eine gültige E-Mail-Adresse ein." },
-        { status: 400 }
+        400, origin
       );
     }
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !supabaseKey) {
       console.error("Missing Supabase env vars:", {
         url: !!supabaseUrl,
-        anonKey: !!supabaseKey,
+        serviceRoleKey: !!supabaseKey,
       });
-      return NextResponse.json(
+      return jsonWithCors(
         { error: "Server-Konfiguration unvollständig." },
-        { status: 500 }
+        500, origin
       );
     }
 
-    // Anon-Key + RLS INSERT Policy — kein Service-Role-Key nötig
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { error } = await supabase
@@ -35,26 +58,26 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       if (error.code === "23505") {
-        return NextResponse.json(
+        return jsonWithCors(
           { success: true, message: "Du bist bereits auf der Liste!" },
-          { status: 200 }
+          200, origin
         );
       }
       console.error("Signup error:", error);
-      return NextResponse.json(
+      return jsonWithCors(
         { error: "Fehler beim Speichern. Bitte versuche es später." },
-        { status: 500 }
+        500, origin
       );
     }
 
-    return NextResponse.json(
+    return jsonWithCors(
       { success: true, message: "Danke! Du bekommst als Erster Zugang." },
-      { status: 200 }
+      200, origin
     );
   } catch {
-    return NextResponse.json(
+    return jsonWithCors(
       { error: "Ungültige Anfrage." },
-      { status: 400 }
+      400, origin
     );
   }
 }
