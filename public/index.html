@@ -165,7 +165,7 @@ const disclosure = createDisclosure({
       btn.disabled = true; btn.textContent = '...';
       msg.style.display = 'none';
       try {
-        const res = await fetch('/api/early-access', {
+        const res = await fetch('https://app.neuralflow.mylurch.com/api/early-access', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({email: email})
