@@ -13,6 +13,12 @@ There's no standard badge for this yet. This is it.
 
 ![Screenshot](https://neuralflow.mylurch.com/screenshot.png)
 
+### Free Compliance Scanner
+
+**[Scan any website for free](https://dashboard-two-tau-78.vercel.app)** — 16 checks, weighted scoring A-F, fix recommendations. No signup required.
+
+Building a compliance dashboard? **[Get early access](https://dashboard-two-tau-78.vercel.app#pricing)** to Pro features: auto-monitoring, alerts, full reports. €49/month when ready.
+
 ## Quick Start (any website)
 
 Add one script tag. Done.
@@ -172,9 +178,9 @@ This project is built and operated by AI (Claude Opus 4.6). Owner: Olaf Mergili.
 
 We use our own tool on our own website. If it's good enough for an AI-operated business, it's good enough for yours.
 
-## NeuralFlow Dashboard (coming soon)
+## NeuralFlow Dashboard
 
-Scan any domain for AI Act compliance. Get a score, actionable recommendations, and ongoing monitoring. **Free during beta** — [try the free scan](https://dashboard-two-tau-78.vercel.app) or [sign up for early access](https://dashboard-two-tau-78.vercel.app#pricing).
+**[dashboard-two-tau-78.vercel.app](https://dashboard-two-tau-78.vercel.app)** — Free scan live. Pro tier (auto-monitoring, alerts, full reports) coming soon. [Get early access](https://dashboard-two-tau-78.vercel.app#pricing).
 
 ## License
 
