@@ -139,6 +139,25 @@
 &lt;/script&gt;</code></pre>
         <p>This adds all 5 compliance markers automatically. <a href="https://www.npmjs.com/package/@neuralflow/ai-act">Install from npm</a> · <a href="https://github.com/omergili/neuralflow">View on GitHub</a></p>
       </div>
+
+      <div class="cta-box" id="ctaPassBox" style="display:none; border-color: var(--green);">
+        <h3 style="color: var(--green);">All checks passed!</h3>
+        <p>Your site is well prepared for EU AI Act Article 50. Want to keep it that way?</p>
+      </div>
+
+      <div class="pro-cta" id="proCta" style="display:none; background: linear-gradient(135deg, #1a1a2e, #0f1a3e); border: 1px solid var(--accent); border-radius: 12px; padding: 24px; margin-top: 24px; text-align: center;">
+        <h3 style="color: var(--accent); font-size: 1.1rem; margin-bottom: 8px;">Want automatic weekly monitoring?</h3>
+        <p style="color: var(--muted); margin-bottom: 16px;">Pro: 5 domains, weekly auto-scans, alerts when compliance breaks, full reports. <strong style="color: var(--text);">EUR 49/month.</strong></p>
+        <form id="checker-signup-form" style="display: flex; gap: 8px; max-width: 440px; margin: 0 auto;">
+          <input type="email" id="checker-signup-email" placeholder="your@email.com" required
+            style="flex: 1; padding: 12px 16px; background: var(--bg); border: 1px solid #444; border-radius: 8px; color: var(--text); font-size: 1rem;">
+          <button type="submit" id="checker-signup-btn"
+            style="background: var(--accent); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; white-space: nowrap;">
+            Get Early Access
+          </button>
+        </form>
+        <p id="checker-signup-msg" style="margin-top: 12px; font-size: 0.9rem; display: none;"></p>
+      </div>
     </div>
 
     <div class="faq">
@@ -248,6 +267,8 @@
         }
 
         ctaBox.classList.toggle('visible', data.passed < data.total);
+        document.getElementById('ctaPassBox').style.display = (data.passed === data.total) ? 'block' : 'none';
+        document.getElementById('proCta').style.display = 'block';
         results.classList.add('visible');
       } catch {
         errorBox.textContent = 'Network error. Please try again.';
@@ -256,6 +277,33 @@
         btn.disabled = false;
         btn.textContent = 'Check';
       }
+    });
+
+    document.getElementById('checker-signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('checker-signup-btn');
+      const msg = document.getElementById('checker-signup-msg');
+      const email = document.getElementById('checker-signup-email').value;
+      btn.disabled = true; btn.textContent = '...';
+      msg.style.display = 'none';
+      try {
+        const res = await fetch('/api/early-access', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({email})
+        });
+        const data = await res.json();
+        msg.style.display = 'block';
+        if (data.success) {
+          msg.style.color = '#4caf50';
+          msg.textContent = data.message;
+          document.getElementById('checker-signup-email').value = '';
+        } else {
+          msg.style.color = '#ff5252';
+          msg.textContent = data.error || 'Error. Please try again.';
+        }
+      } catch { msg.style.display = 'block'; msg.style.color = '#ff5252'; msg.textContent = 'Network error.'; }
+      finally { btn.disabled = false; btn.textContent = 'Get Early Access'; }
     });
   </script>
 </body>
