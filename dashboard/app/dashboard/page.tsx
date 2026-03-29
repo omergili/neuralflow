@@ -123,7 +123,7 @@ export default function DashboardOverview() {
       <div>
         <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
         <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-8 text-center">
-          <div className="text-4xl mb-4">🔍</div>
+          <div className="text-4xl mb-4 text-[var(--accent)]">?</div>
           <h2 className="text-lg font-semibold text-gray-300 mb-2">Noch keine Scans</h2>
           <p className="text-gray-500 text-sm mb-4">
             Scanne deine erste Website auf EU AI Act Konformität.

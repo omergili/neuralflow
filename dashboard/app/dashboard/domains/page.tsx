@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { saveScan, loadScans } from "@/lib/db";
 import type { ScanResult, Category, Severity, CategoryScore, Check } from "@/lib/db";
 
-const CATEGORY_LABELS: Record<Category, { label: string; icon: string }> = {
-  transparency: { label: "Transparenz", icon: "👁" },
-  documentation: { label: "Dokumentation", icon: "📋" },
-  technical: { label: "Technik", icon: "⚙" },
-  content: { label: "Content", icon: "📝" },
+const CATEGORY_LABELS: Record<Category, { label: string; abbr: string }> = {
+  transparency: { label: "Transparenz", abbr: "T" },
+  documentation: { label: "Dokumentation", abbr: "D" },
+  technical: { label: "Technik", abbr: "K" },
+  content: { label: "Content", abbr: "C" },
 };
 
 const SEVERITY_STYLES: Record<Severity, { bg: string; text: string; label: string }> = {
@@ -59,7 +59,7 @@ function CategoryBar({ category, data }: { category: Category; data: CategorySco
   const info = CATEGORY_LABELS[category];
   return (
     <div className="flex items-center gap-3">
-      <span className="text-lg">{info.icon}</span>
+      <span className="text-xs font-bold text-[var(--accent)] bg-[var(--accent)]/10 w-6 h-6 rounded flex items-center justify-center">{info.abbr}</span>
       <div className="flex-1">
         <div className="flex justify-between text-sm mb-1">
           <span className="text-gray-300">{info.label}</span>
@@ -275,7 +275,7 @@ export default function DomainsPage() {
               }}
               className="flex items-center gap-2 bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition"
             >
-              <span>📄</span> JSON exportieren
+              JSON exportieren
             </button>
             <button
               onClick={() => {
@@ -294,7 +294,7 @@ export default function DomainsPage() {
               }}
               className="flex items-center gap-2 bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-700 transition"
             >
-              <span>📊</span> CSV exportieren
+              CSV exportieren
             </button>
           </div>
 
